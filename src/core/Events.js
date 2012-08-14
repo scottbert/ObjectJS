@@ -40,7 +40,8 @@ FF.reqNameSpace('FF');
 							}
 							E[customEvent].push({
 								id : Object.id,
-								fn : Object[Registry[customEvent]]
+								fn : Object[Registry[customEvent]],
+								view: Object.getView()
 							});
 						}
 					}
@@ -70,9 +71,11 @@ FF.reqNameSpace('FF');
 			/**
 			 * This publishes an event.
 			 * @param  {string} eventKey	The key for the event we would like to publish
+			 * @param  {object} parameters  Any parameters passed to the event.
+			 * @param  {string} view        Optionally pass a view's ID to only publish 
 			 * @return {array | object}		an optional argument or array of arguments.
 			 */
-			publish : function (eventKey, parameters) {
+			publish : function (eventKey, parameters, view) {
 				var functions,
 					l,
 					x;
@@ -81,7 +84,11 @@ FF.reqNameSpace('FF');
 					if (functions) {
 						l = functions.length;
 						for (x = 0; x < l; x++) {
-							functions[x].fn(parameters || null);
+							if (view && view === functions[x].view.id) {
+								functions[x].fn(parameters || null);
+							} else {
+								functions[x].fn(parameters || null);
+							}
 						}
 					}
 				}

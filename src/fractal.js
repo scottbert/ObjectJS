@@ -71,7 +71,8 @@ var FF = {};
 			ff.NOOP = function () {};
 			ff.Console = ff.Console || ff.NOOP;
 			ff.requires('config');
-		};
+		},
+		currentView;
 	/** API METHODS **/
 	/**
 	 * reqNameSpace. Requests a namespace. If the namespace does not exist, it will
@@ -206,6 +207,24 @@ var FF = {};
 			object.augmented = true;
 		}
 		return object;
+	};
+	ff.initObj = function (obj, ns, fn) {
+		if (!ns[obj]) {
+			return false;
+		}
+		if (typeof ns[obj] === 'function') {
+			ns[obj] = new ns[obj]();
+		}
+		if (ns[obj][fn]) {
+			ns[obj][fn]();
+		}
+	};
+	ff.getView = function () {
+		return currentView;
+	};
+	ff.view = function (view) {
+		ff.initObj(view, ff.views, 'enter');
+		currentView = ff.views[view];
 	};
 	ff.loadScript = loadScript;
 	init();

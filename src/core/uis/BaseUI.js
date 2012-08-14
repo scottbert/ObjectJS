@@ -8,11 +8,14 @@ FF.reqNameSpace('FF.core.uis');
 (function (uis) {
 	"use strict";
 	/** PRIVATE METHODS **/
-	var BaseUI = FF.augmentObject({});
+	var BaseUI = FF.augmentObject({}),
+		f = function (fn) {
+			return (typeof fn === "function");
+		};
 
 	/** API METHODS **/
 	BaseUI.setRootDomNode = function (domNode) {
-		BaseUI.root = (domNode.jquery) ? domNode : $(domNode);
+		BaseUI.root = (domNode.jquery || domNode.zepto) ? domNode : $(domNode);
 	};
 	/**
 	 * setupUI - sets up a UI, caches its domnode and prepares it for use.
@@ -23,13 +26,13 @@ FF.reqNameSpace('FF.core.uis');
 			FF.requires(['core.mixins.Native']);
 		}
 		FF.mixins.UI(this);
-		if (!window.jQuery) {
+		if (!window.jQuery || window.Zepto) {
 			this.domNode = FF.mixins.Selector(id);
 		} else {
-			if (id.jquery) {
+			if (id.jquery || id.zepto) {
 				this.domNode = id;
 			} else {
-				this.domNode = $(id);
+				this.domNode = BaseUI.root.find(id).eq(0);
 			}
 		}
 		this.contentNode = this.domNode.find('.content');
@@ -39,6 +42,36 @@ FF.reqNameSpace('FF.core.uis');
 	};
 	BaseUI.setView = function (view) {
 		this.view = view;
+	};
+	BaseUI.open = function (obj) {
+		setTimeout(function () {
+			obj.domNode.addClass('open');
+		}, 100);
+	};
+	BaseUI.close = function (cb) {
+		this.domNode.removeClass('open');
+		if (cb && f(cb)) {
+			cb();
+		}
+	};
+	BaseUI.getContentNode = function () {
+		return this.contentNode;
+	};
+	BaseUI.addMethods = function (options) {
+		var method;
+		for (method in options) {
+			if (options.hasOwnProperty(method)) {
+				if (!this[method]) {
+					this[method] = options[method];
+				} else {
+					options['super' + method] = this[method];
+					this[method] = function () {
+						options[method](arguments);
+						options['super' + method](arguments);
+					};
+				}
+			}
+		}
 	};
 	/**
 	 * createUI - takes an object and extends it with the BaseUI
