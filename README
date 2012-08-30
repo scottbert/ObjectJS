@@ -31,6 +31,18 @@ NOTE: Only the client is finished.
 The framework is tiny. core is 5k minified, 2k gzipped. 
 I need to document it somewhat.
 
+Scott, 30th August 2012
+NEU:
+I've split the repos, so this is the front end only component - it's good to 
+go, just needs a few more tests. I've been having a large amount of lack of 
+time lately in which to develop stuff and creating FractalJS is a bit time
+consuming so it seemed to make sense as I'd only really done the front end
+bit anyway. So This will be ObjJS and FractalJS will depend on it and use
+the same syntax but for the back end.
+
+See https://github.com/scottbert/FractalJS if you have no idea what I'm 
+talking about.
+
 Scott, 22 Mar 2012.
 
 ORIGINAL GOAL:
