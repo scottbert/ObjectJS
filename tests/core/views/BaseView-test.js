@@ -1,6 +1,6 @@
-/*jslint bitwise: false, sloppy:true, browser: true, newcap:true, windows: false, evil: false, white: false, plusplus: true, indent: 4 */
+/*jslint bitwise: false, sloppy:true, browser: true, newcap:true, windows: false, evil: false, white: false, plusplus: true */
 /*globals
-	FF:false,
+	ObjectJS:false,
 	TestCase:false,
 	assertEquals:false,
 	expectAsserts:false,
@@ -17,7 +17,7 @@
 */
 TestCase("Test the BaseView object", {
 	setUp : function () {
-		FF.reqNameSpace('test');
+		ObjectJS.reqNameSpace('test');
 		test.TestView = function () {
 			var that = this,
 				init = function () {
@@ -38,7 +38,7 @@ TestCase("Test the BaseView object", {
 			};
 			init();
 		};
-		FF.reqNameSpace('test.uis');
+		ObjectJS.reqNameSpace('test.uis');
 		test.uis.UI1 = function (view) {
 			this.id = 'ui1';
 			this.view = view;
@@ -51,9 +51,9 @@ TestCase("Test the BaseView object", {
 			this.id = 'ui3';
 			this.view = view;
 		};
-		FF.core.uis.BaseUI.createUI(test.uis.UI1);
-		FF.core.uis.BaseUI.createUI(test.uis.UI2);
-		FF.core.uis.BaseUI.createUI(test.uis.UI3);
+		ObjectJS.core.uis.BaseUI.createUI(test.uis.UI1);
+		ObjectJS.core.uis.BaseUI.createUI(test.uis.UI2);
+		ObjectJS.core.uis.BaseUI.createUI(test.uis.UI3);
 	},
 	tearDown : function () {
 		test.TestView = null;
@@ -62,7 +62,7 @@ TestCase("Test the BaseView object", {
 	"test createView" : function () {
 		expectAsserts(1);
 		assertNoException(function () {
-			FF.core.views.BaseView.createView(test.TestView);
+			ObjectJS.core.views.BaseView.createView(test.TestView);
 		});
 	},
 	"test view can be instantiated" : function () {
@@ -72,7 +72,7 @@ TestCase("Test the BaseView object", {
 	},
 	"test BaseView API methods exist on new child View" : function () {
 		expectAsserts(6);
-		FF.core.views.BaseView.createView(test.TestView);
+		ObjectJS.core.views.BaseView.createView(test.TestView);
 		test.TestView = new test.TestView();
 		assertFunction(test.TestView.setDefaultComponents);
 		assertFunction(test.TestView.requires);
@@ -83,7 +83,7 @@ TestCase("Test the BaseView object", {
 	},
 	"test BaseView API method setDefaultComponents" : function () {
 		expectAsserts(2);
-		FF.core.views.BaseView.createView(test.TestView);
+		ObjectJS.core.views.BaseView.createView(test.TestView);
 		test.TestView = new test.TestView();
 		assertFunction(test.TestView.setDefaultComponents);
 		assertNoException(function () {
@@ -92,8 +92,8 @@ TestCase("Test the BaseView object", {
 	},
 	"test BaseView API method requires" : function () {
 		expectAsserts(13);
-		FF.core.views.BaseView.createView(test.TestView);
-		FF.core.views.BaseView.createView(test.TestView2);
+		ObjectJS.core.views.BaseView.createView(test.TestView);
+		ObjectJS.core.views.BaseView.createView(test.TestView2);
 		test.TestView = new test.TestView();
 		test.TestView2 = new test.TestView2();
 		test.TestView.setDefaultComponents(test.uis, ['UI1']);

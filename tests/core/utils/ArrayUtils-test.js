@@ -1,6 +1,6 @@
-/*jslint bitwise: false, sloppy:true, browser: true, newcap:true, windows: false, evil: false, white: false, plusplus: true, indent: 4 */
+/*jslint bitwise: false, sloppy:true, browser: true, newcap:true, windows: false, evil: false, white: false, plusplus: true */
 /*globals
-	FF:false,
+	ObjectJS:false,
 	TestCase:false,
 	assertEquals:false,
 	expectAsserts:false,
@@ -19,7 +19,7 @@ TestCase("Test the ArrayUtils object", {
 		expectAsserts(1);
 		var Array1 = ['my', 'funky', 'array'],
 			Array2 = ['my', 'awesome', 'array'],
-			finalArray = FF.core.utils.ArrayUtils.combine(Array1, Array2);
+			finalArray = ObjectJS.core.utils.ArrayUtils.combine(Array1, Array2);
 		assertEquals(finalArray, ['my', 'funky', 'array', 'awesome']);
 	}
 });

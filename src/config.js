@@ -1,13 +1,13 @@
-/*jslint bitwise: false, browser: true, windows: false, evil: false, white: false, plusplus: true, indent: 4 */
-/*globals FF:false,$:false, TestCase:false,assertEquals:false,expectAsserts:false,assertFunction:false,assertNoException:false*/
+/*jslint bitwise: false, browser: true, windows: false, evil: false, white: false, plusplus: true */
+/*globals ObjectJS:false,$:false, TestCase:false,assertEquals:false,expectAsserts:false,assertFunction:false,assertNoException:false*/
 /**
  * This is the set of core components that the library requires to run.
  * If using the automatic build tools, these will be included. If not,
- * they will be dynamically loaded one at a time. You can use FF.requires
+ * they will be dynamically loaded one at a time. You can use ObjectJS.requires
  * elsewhere in your codebase to load your own components, you can also use it to
  * lazy load code.
  */
-FF.requires(
+ObjectJS.requires(
 	[
 	// utils
 		'core.utils.Core',
@@ -24,6 +24,6 @@ FF.requires(
 	],
 	function () {
 		"use strict";
-		FF.finished = true;
+		ObjectJS.finished = true;
 	}
 );

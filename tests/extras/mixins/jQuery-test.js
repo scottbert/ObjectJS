@@ -1,6 +1,6 @@
-/*jslint bitwise: false, sloppy:true, browser: true, newcap:true, windows: false, evil: false, white: false, plusplus: true, indent: 4 */
+/*jslint bitwise: false, sloppy:true, browser: true, newcap:true, windows: false, evil: false, white: false, plusplus: true */
 /*globals
-	FF:false,
+	ObjectJS:false,
 	TestCase:false,
 	assertEquals:false,
 	expectAsserts:false,

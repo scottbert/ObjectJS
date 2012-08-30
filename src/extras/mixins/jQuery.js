@@ -1,12 +1,12 @@
-/*jslint bitwise: false, browser: true, windows: false, evil: false, white: false, plusplus: true, indent: 4 */
-/*globals FF:false,$:false, TestCase:false,assertEquals:false,expectAsserts:false,assertFunction:false,assertNoException:false*/
+/*jslint bitwise: false, browser: true, windows: false, evil: false, white: false, plusplus: true */
+/*globals ObjectJS:false,$:false, TestCase:false,assertEquals:false,expectAsserts:false,assertFunction:false,assertNoException:false*/
 /**
  * @author scottvanlooy
  */
-FF.reqNameSpace('FF.extras.mixins');
-(function (mixins, jQuery) {
+ObjectJS.reqNameSpace('ObjectJS.extras.mixins');
+(function (mixins, $) {
 	"use strict";
-	if (!jQuery) {
+	if (!$) {
 		return true;
 	}
 	var jQueryMixin = function (object) {
@@ -17,13 +17,13 @@ FF.reqNameSpace('FF.extras.mixins');
 		OBJMIXINS = {
 			superOpen: function (callback) {
 				that = that || this;
-				that.domNode.fadeIn(function () {
+				that.domNode.show().css({opacity: 0}).animate({opacity: 1}, function () {
 					return (callback) ? callback() : null;
 				});
 			},
 			superClose: function (callback) {
 				that = that || this;
-				that.domNode.fadeOut(function () {
+				that.domNode.animate({opacity: 0}, function () {
 					that.domNode.hide();
 					return (callback) ? callback() : null;
 				});
@@ -34,7 +34,7 @@ FF.reqNameSpace('FF.extras.mixins');
 			},
 			off: function () {
 				that = that || this;
-				that.domNode.show();
+				that.domNode.hide();
 			}
 		};
 		UIMIXINS = {
@@ -51,7 +51,7 @@ FF.reqNameSpace('FF.extras.mixins');
 		}
 	};
 	mixins.jQuery = jQueryMixin;
-}(FF.extras.mixins, window.jQuery || window.$));
-if (FF.extras.mixins.jQuery) {
-	FF.mixins.UI = FF.extras.mixins.jQuery;
+}(ObjectJS.extras.mixins, window.jQuery || window.Zepto));
+if (ObjectJS.extras.mixins.jQuery) {
+	ObjectJS.mixins.UI = ObjectJS.extras.mixins.jQuery;
 }

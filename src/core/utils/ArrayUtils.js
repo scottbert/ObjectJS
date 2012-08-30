@@ -1,10 +1,10 @@
-/*jslint bitwise: false, browser: true, windows: false, evil: false, white: false, plusplus: true, indent: 4 */
-/*globals FF:false,$:false, TestCase:false,assertEquals:false,expectAsserts:false,assertFunction:false,assertNoException:false*/
+/*jslint bitwise: false, browser: true, windows: false, evil: false, white: false, plusplus: true */
+/*globals ObjectJS:false,$:false, TestCase:false,assertEquals:false,expectAsserts:false,assertFunction:false,assertNoException:false*/
 
 /**
  * @author Scott van Looy
  */
-FF.reqNameSpace('FF.core.utils');
+ObjectJS.reqNameSpace('ObjectJS.core.utils');
 /**
  * takes two arrays of strings and combines them, removing duplicates
  * @param arr1 {Array} - first array to combine
@@ -36,4 +36,4 @@ FF.reqNameSpace('FF.core.utils');
 		return Object.prototype.toString.call(o) === '[object Array]';
 	};
 	utils.ArrayUtils = ArrayUtils;
-}(FF.core.utils));
+}(ObjectJS.core.utils));

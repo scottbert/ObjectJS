@@ -1,5 +1,5 @@
-/*jslint bitwise: false, browser: true, windows: false, evil: false, white: false, plusplus: true, indent: 4 */
-/*globals FF:false,$:false, TestCase:false,assertEquals:false,expectAsserts:false,assertFunction:false,assertNoException:false*/
+/*jslint bitwise: false, browser: true, windows: false, evil: false, white: false, plusplus: true */
+/*globals ObjectJS:false,$:false, TestCase:false,assertEquals:false,expectAsserts:false,assertFunction:false,assertNoException:false*/
 /**
  * @author Scott van Looy
  */
@@ -7,7 +7,7 @@
 /**
  * Request our namespace
  */
-FF.reqNameSpace('FF.core.views');
+ObjectJS.reqNameSpace('ObjectJS.core.views');
 
 /**
  * Closure to create our object
@@ -16,11 +16,11 @@ FF.reqNameSpace('FF.core.views');
  */
 (function (views) {
 	"use strict";
-	var BaseView = FF.augmentObject({}),
+	var BaseView = ObjectJS.augmentObject({}),
 	/** PRIVATE METHODS **/
 		defaults = [],
 		loadComponents = function (namespace, uisArray, view, addToDefaults) {
-			var arr = FF.core.utils.ArrayUtils.combine(defaults, uisArray),
+			var arr = ObjectJS.core.utils.ArrayUtils.combine(defaults, uisArray),
 				l = arr.length,
 				ret = {};
 			view = view || {};
@@ -67,7 +67,7 @@ FF.reqNameSpace('FF.core.views');
 	 * @return {String[]}           array of objects
 	 */
 	BaseView.requires = function (namespace, arr, view) {
-		var uiMap = FF.core.utils.ArrayUtils.combine(arr, defaults);
+		var uiMap = ObjectJS.core.utils.ArrayUtils.combine(arr, defaults);
 		view.uis = loadComponents(namespace, uiMap, view);
 		return view.uis;
 	};
@@ -98,4 +98,4 @@ FF.reqNameSpace('FF.core.views');
 	BaseView.controller = null;
 
 	views.BaseView = BaseView;
-}(FF.core.views));
+}(ObjectJS.core.views));

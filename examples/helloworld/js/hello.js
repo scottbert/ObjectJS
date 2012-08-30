@@ -1,5 +1,5 @@
-/*jslint bitwise: false, browser: true, windows: false, evil: false, white: false, plusplus: true, indent: 4 */
-/*globals FF:false,$:false, TestCase:false,assertEquals:false,expectAsserts:false,assertFunction:false,assertNoException:false, jQuery:false, window:false*/
+/*jslint bitwise: false, browser: true, windows: false, evil: false, white: false, plusplus: true*/
+/*globals ObjectJS:false,$:false, TestCase:false,assertEquals:false,expectAsserts:false,assertFunction:false,assertNoException:false, jQuery:false, window:false*/
 /**
  * @author scottvanlooy
  */
@@ -75,14 +75,14 @@ var HelloNamespace = {};
 			};
 			HelloWorld.domNode.find('.tst').bind('click', function (e) {
 				e.preventDefault();
-				FF.core.controllers.BaseController.getData(options);
+				ObjectJS.core.controllers.BaseController.getData(options);
 			});
 			HelloWorld.superOpen();
 		};
 		init();
 	};
-	FF.core.uis.BaseUI.createUI(ns.uis.HelloWorld);
-	FF.core.views.BaseView.createView(ns.View);
-	FF.core.controllers.BaseController.createController(ns.Controller);
+	ObjectJS.core.uis.BaseUI.createUI(ns.uis.HelloWorld);
+	ObjectJS.core.views.BaseView.createView(ns.View);
+	ObjectJS.core.controllers.BaseController.createController(ns.Controller);
 	ns.Controller = new ns.Controller();
 }(HelloNamespace));

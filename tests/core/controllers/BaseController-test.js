@@ -1,6 +1,6 @@
-/*jslint bitwise: false, sloppy:true, browser: true, newcap:true, windows: false, evil: false, white: false, plusplus: true, indent: 4 */
+/*jslint bitwise: false, sloppy:true, browser: true, newcap:true, windows: false, evil: false, white: false, plusplus: true*/
 /*globals
-	FF:false,
+	ObjectJS:false,
 	TestCase:false,
 	assertEquals:false,
 	expectAsserts:false,
@@ -17,7 +17,7 @@
 */
 TestCase("Test the BaseController object", {
 	setUp : function () {
-		FF.reqNameSpace('test');
+		ObjectJS.reqNameSpace('test');
 		test.TestController = function () {
 			var that = this;
 			this.getExampleText = function () {
@@ -37,7 +37,7 @@ TestCase("Test the BaseController object", {
 			};
 			init();
 		};
-		FF.core.views.BaseView.createView(test.TestView);
+		ObjectJS.core.views.BaseView.createView(test.TestView);
 		test.string = "I think {token1} should be replaced with {token2} and {token3} or {token4}";
 		test.tokens = {
 			token1 : 'life',
@@ -54,7 +54,7 @@ TestCase("Test the BaseController object", {
 	"test creation of controller using createController" : function () {
 		expectAsserts(4);
 		assertNoException(function () {
-			FF.core.controllers.BaseController.createController(test.TestController);
+			ObjectJS.core.controllers.BaseController.createController(test.TestController);
 		});
 		test.TestController = new test.TestController();
 		assertFunction(test.TestController.callView);
@@ -64,7 +64,7 @@ TestCase("Test the BaseController object", {
 	},
 	"test tokenizer" : function () {
 		expectAsserts(3);
-		FF.core.controllers.BaseController.createController(test.TestController);
+		ObjectJS.core.controllers.BaseController.createController(test.TestController);
 		test.TestController = new test.TestController();
 		assertEquals('I think life should be replaced with taxis and death or bling', test.TestController.tokeniser(test.string, test.tokens));
 		assertNotEquals('I like foo and foo with foo', test.TestController.tokeniser('I like {token5} and {token5} with {token5}', test.tokens));
@@ -86,7 +86,7 @@ AsyncTestCase("Test the JSONP getData function asynchronously", {
 					dataObj = data;
 				})
 			};
-			FF.core.controllers.BaseController.getData(options);
+			ObjectJS.core.controllers.BaseController.getData(options);
 		});
 		queue.call('check getData returned an object from flickr.', function () {
 			assertObject(dataObj);

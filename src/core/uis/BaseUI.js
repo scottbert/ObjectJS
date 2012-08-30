@@ -1,14 +1,14 @@
-/*jslint bitwise: false, browser: true, windows: false, evil: false, white: false, plusplus: true, indent: 4 */
-/*globals FF:false,$:false, TestCase:false,assertEquals:false,expectAsserts:false,assertFunction:false,assertNoException:false, jQuery:false, window:false*/
+/*jslint bitwise: false, browser: true, windows: false, evil: false, white: false, plusplus: true */
+/*globals ObjectJS:false,$:false, TestCase:false,assertEquals:false,expectAsserts:false,assertFunction:false,assertNoException:false, jQuery:false, window:false*/
 
 /**
  * @author Scott van Looy
  */
-FF.reqNameSpace('FF.core.uis');
+ObjectJS.reqNameSpace('ObjectJS.core.uis');
 (function (uis) {
 	"use strict";
 	/** PRIVATE METHODS **/
-	var BaseUI = FF.augmentObject({}),
+	var BaseUI = ObjectJS.augmentObject({}),
 		f = function (fn) {
 			return (typeof fn === "function");
 		};
@@ -22,12 +22,12 @@ FF.reqNameSpace('FF.core.uis');
 	 * @param {string|object} id - the dom ID, className or jQuery object of the root element for the UI.
 	 */
 	BaseUI.setupUI = function (id) {
-		if (!FF.mixins.UI) {
-			FF.requires(['core.mixins.Native']);
+		if (!ObjectJS.mixins.UI) {
+			ObjectJS.requires(['core.mixins.Native']);
 		}
-		FF.mixins.UI(this);
+		ObjectJS.mixins.UI(this);
 		if (!window.jQuery || !window.Zepto) {
-			this.domNode = FF.mixins.Selector(id);
+			this.domNode = ObjectJS.mixins.Selector(id);
 		} else {
 			if (id.jquery || id.zepto) {
 				this.domNode = id;
@@ -89,5 +89,5 @@ FF.reqNameSpace('FF.core.uis');
 	 */
 	BaseUI.createUI = BaseUI.extend.curry(undefined, BaseUI);
 	uis.BaseUI = BaseUI;
-}(FF.core.uis));
+}(ObjectJS.core.uis));
 

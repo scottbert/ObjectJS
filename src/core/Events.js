@@ -1,10 +1,10 @@
-/*jslint bitwise: false, browser: true, windows: false, evil: false, white: false, plusplus: true, indent: 4 */
-/*globals FF:false,$:false, TestCase:false,assertEquals:false,expectAsserts:false,assertFunction:false,assertNoException:false*/
+/*jslint bitwise: false, browser: true, windows: false, evil: false, white: false, plusplus: true */
+/*globals ObjectJS:false,$:false, TestCase:false,assertEquals:false,expectAsserts:false,assertFunction:false,assertNoException:false*/
 /**
  * @author scottvanlooy
  */
-FF.reqNameSpace('FF');
-(function (ff) {
+ObjectJS.reqNameSpace('ObjectJS');
+(function (Oj) {
 	"use strict";
 	/**
 	 * the Events object store.
@@ -130,5 +130,5 @@ FF.reqNameSpace('FF');
 				}
 			}
 		};
-	ff.Events = Events;
-}(FF));
+	Oj.Events = Events;
+}(ObjectJS));

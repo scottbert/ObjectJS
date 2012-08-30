@@ -1,6 +1,6 @@
 ({
 	baseUrl: "../src",
-	name: "fractal",
+	name: "ObjectJS",
 	skipModuleInsertion: true,
 	include: [
 		"core/utils/Core",
@@ -16,5 +16,5 @@
 		"extras",
 		"config"
 	],
-	out:'../compiled/fractal.all.min.js'
+	out: '../compiled/obj.all.min.js'
 })

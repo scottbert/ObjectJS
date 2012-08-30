@@ -1,29 +1,29 @@
-/*jslint bitwise: false, browser: true, windows: false, evil: false, white: false, plusplus: true, indent: 4 */
-/*globals FF:false,TestCase:false,assertEquals:false,expectAsserts:false,assertFunction:false,assertNoException:false, assertUndefined:false, assertObject:false*/
+/*jslint bitwise: false, browser: true, windows: false, evil: false, white: false, plusplus: true */
+/*globals ObjectJS:false,TestCase:false,assertEquals:false,expectAsserts:false,assertFunction:false,assertNoException:false, assertUndefined:false, assertObject:false*/
 var Foo;
 TestCase("Test the fractaljs methods", {
 	setUp: function () {
-		delete FF.namespace;
-		delete FF.extras.Dummy;
+		delete ObjectJS.namespace;
+		delete ObjectJS.extras.Dummy;
 		Foo = function () {
 			"use strict";
 			this.myFunction = function () {
 				return 'my function';
 			};
 		};
-		FF.reqNameSpace('FF.extras');
+		ObjectJS.reqNameSpace('ObjectJS.extras');
 		(function () {
 			var Dummy = {
 				iExist : function () {
 					return 'iDo';
 				}
 			};
-			FF.extras.Dummy = Dummy;
+			ObjectJS.extras.Dummy = Dummy;
 		}());
 	},
 	tearDown: function () {
 		Foo = null;
-		FF.extras.Dummy = null;
+		ObjectJS.extras.Dummy = null;
 	},
 	"test Function.prototype.curry method" : function () {
 		expectAsserts(3);
@@ -43,27 +43,27 @@ TestCase("Test the fractaljs methods", {
 	},
 	"test reqNameSpace function to request a namespace" : function () {
 		expectAsserts(4);
-		assertUndefined(FF.namespace);
-		FF.reqNameSpace('FF.namespace');
-		assertObject(FF.namespace);
-		FF.reqNameSpace('FF.core.views');
-		assertObject(FF.core.views);
-		FF.reqNameSpace('FF.core.views.namespace');
-		assertObject(FF.core.views.namespace);
+		assertUndefined(ObjectJS.namespace);
+		ObjectJS.reqNameSpace('ObjectJS.namespace');
+		assertObject(ObjectJS.namespace);
+		ObjectJS.reqNameSpace('ObjectJS.core.views');
+		assertObject(ObjectJS.core.views);
+		ObjectJS.reqNameSpace('ObjectJS.core.views.namespace');
+		assertObject(ObjectJS.core.views.namespace);
 	},
 	"test requires function to request an additional module" : function () {
 		expectAsserts(1);
-		FF.requires('extras.Dummy', function () {
-			assertObject(FF.extras.Dummy);
+		ObjectJS.requires('extras.Dummy', function () {
+			assertObject(ObjectJS.extras.Dummy);
 		});
-		FF.requires('extras.Foo', function () {
+		ObjectJS.requires('extras.Foo', function () {
 			// should never get here
-			assertObject(FF.extras.Dummy);
+			assertObject(ObjectJS.extras.Dummy);
 		});
 	},
 	"test augmentObject function to add items to an object" : function () {
 		expectAsserts(1);
-		var o = FF.augmentObject({});
+		var o = ObjectJS.augmentObject({});
 		assertFunction(o.extend);
 	},
 	"test extend function to extend a function with another function" : function () {
@@ -74,7 +74,7 @@ TestCase("Test the fractaljs methods", {
 		obj2 = function () {
 			this.method2 = 'method2';
 		},
-		o = FF.augmentObject({});
+		o = ObjectJS.augmentObject({});
 		assertNoException(function () {
 			o.extend(obj1, obj2);
 		});

@@ -1,9 +1,9 @@
-/*jslint bitwise: false, browser: true, windows: false, evil: false, white: false, plusplus: true, indent: 4 */
-/*globals FF:false,$:false, TestCase:false,assertEquals:false,expectAsserts:false,assertFunction:false,assertNoException:false, ActiveXObject:false*/
+/*jslint bitwise: false, browser: true, windows: false, evil: false, white: false, plusplus: true */
+/*globals ObjectJS:false,$:false, TestCase:false,assertEquals:false,expectAsserts:false,assertFunction:false,assertNoException:false, ActiveXObject:false*/
 /**
  * @author scottvanlooy
  */
-FF.reqNameSpace('FF.extras.mixins');
+ObjectJS.reqNameSpace('ObjectJS.extras.mixins');
 (function (mixins) {
 	"use strict";
 	var augment,
@@ -107,7 +107,7 @@ FF.reqNameSpace('FF.extras.mixins');
 						dataObj[fn] = data;
 					};
 					try {
-						FF.loadScript(url, cb, 1, 0, 0, error);
+						ObjectJS.loadScript(url, cb, 1, 0, 0, error);
 					} catch (ex) {
 						error(ex);
 					}
@@ -196,7 +196,7 @@ FF.reqNameSpace('FF.extras.mixins');
 	mixins.NativeUI = NativeUI;
 	mixins.NativeSelector = NativeSelector;
 	mixins.NativeController = NativeController;
-}(FF.extras.mixins));
-FF.mixins.UI = FF.extras.mixins.NativeUI;
-FF.mixins.Selector = FF.extras.mixins.NativeSelector;
-FF.mixins.Controller = FF.extras.mixins.NativeController;
+}(ObjectJS.extras.mixins));
+ObjectJS.mixins.UI = ObjectJS.extras.mixins.NativeUI;
+ObjectJS.mixins.Selector = ObjectJS.extras.mixins.NativeSelector;
+ObjectJS.mixins.Controller = ObjectJS.extras.mixins.NativeController;

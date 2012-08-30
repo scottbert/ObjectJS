@@ -59,11 +59,21 @@ samples in the examples directory :)
 Scott, 19 Sept 2011.
 
 CHANGELOG:
+30-Aug-12
+=========
+Changed to ObjectJS. FractalJS will continue (albeit slowly) at the original repo 
+location and will use ObjectJS as a dependency, so ObjectJS can happily live on
+just the client for now as it is almost complete. 
+TODO: Don't try using without jQuery/Zepto yet. Also wouldn't recommend yet using
+it as I've not worked out where to put the docs.
+Need to write unit tests for JSON templating.
+
 18-Apr-12
 =========
 Added:
 Native JSONP and a stub for native XHR
-.bind for binding events (follows jQuery syntax, with the exception that it just takes two arguments: event and function)
+.bind for binding events (follows jQuery syntax, with the exception that it just 
+takes two arguments: event and function)
 tests for JSONP
 code coverage plugin for tests.
 10-Apr-12
@@ -74,7 +84,8 @@ Rewrote the internals of partial, renamed to curry, it now actually works
 and passes tests.
 05-Apr-12
 =========
-Added Function.prototype.partial, used John Resig's as a base and extended it to deal with multiple arguments.
+Added Function.prototype.partial, used John Resig's as a base and extended it to 
+deal with multiple arguments.
 http://ejohn.org/blog/partial-functions-in-javascript/
 Added tests for BaseView and partial
 Moved API methods createView/createController/createUI onto their base objects

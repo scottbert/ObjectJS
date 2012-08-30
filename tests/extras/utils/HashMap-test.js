@@ -1,6 +1,6 @@
-/*jslint bitwise: false, sloppy:true, browser: true, newcap:true, windows: false, evil: false, white: false, plusplus: true, indent: 4 */
+/*jslint bitwise: false, sloppy:true, browser: true, newcap:true, windows: false, evil: false, white: false, plusplus: true */
 /*globals
-	FF:false,
+	ObjectJS:false,
 	TestCase:false,
 	assertEquals:false,
 	expectAsserts:false,
@@ -18,7 +18,7 @@
 TestCase("Test the HashMap", {
 	"test the clear method" : function () {
 		expectAsserts(2);
-		var hash = new FF.extras.utils.HashMap();
+		var hash = new ObjectJS.extras.utils.HashMap();
 		hash.put('me', 'myself');
 		assertEquals(hash.get('me'), "myself");
 		hash.clear();
@@ -26,7 +26,7 @@ TestCase("Test the HashMap", {
 	},
 	"test the clone method" : function () {
 		expectAsserts(2);
-		var hash = new FF.extras.utils.HashMap(),
+		var hash = new ObjectJS.extras.utils.HashMap(),
 			moo;
 		hash.put('me', 'myself');
 		hash.put('no', 'way');
@@ -36,56 +36,56 @@ TestCase("Test the HashMap", {
 	},
 	"test the containsKey method": function () {
 		expectAsserts(2);
-		var hash = new FF.extras.utils.HashMap();
+		var hash = new ObjectJS.extras.utils.HashMap();
 		hash.put('me', 'myself');
 		assertTrue(hash.containsKey('me'));
 		assertFalse(hash.containsKey('you'));
 	},
 	"test the containsValue method": function () {
 		expectAsserts(2);
-		var hash = new FF.extras.utils.HashMap();
+		var hash = new ObjectJS.extras.utils.HashMap();
 		hash.put('me', 'myself');
 		assertTrue(hash.containsValue('myself'));
 		assertFalse(hash.containsValue('you'));
 	},
 	"test the entrySet method": function () {
 		expectAsserts(1);
-		var hash = new FF.extras.utils.HashMap();
+		var hash = new ObjectJS.extras.utils.HashMap();
 		assertException(function () {
 			hash.entrySet();
 		});
 	},
 	"test the get method": function () {
 		expectAsserts(2);
-		var hash = new FF.extras.utils.HashMap();
+		var hash = new ObjectJS.extras.utils.HashMap();
 		hash.put('me', 'myself');
 		assertEquals(hash.get('me'), 'myself');
 		assertNotEquals(hash.get('me'), 'boo');
 	},
 	"test the isEmpty method": function () {
 		expectAsserts(2);
-		var hash = new FF.extras.utils.HashMap();
+		var hash = new ObjectJS.extras.utils.HashMap();
 		assertTrue(hash.isEmpty());
 		hash.put('me', 'myself');
 		assertFalse(hash.isEmpty());
 	},
 	testKeySet: function () {
 		expectAsserts(1);
-		var hash = new FF.extras.utils.HashMap();
+		var hash = new ObjectJS.extras.utils.HashMap();
 		hash.put('me', 'myself');
 		hash.put('you', 'myself');
 		assertEquals(hash.keySet(), ['me', 'you']);
 	},
 	testPut: function () {
 		expectAsserts(2);
-		var hash = new FF.extras.utils.HashMap();
+		var hash = new ObjectJS.extras.utils.HashMap();
 		assertEquals(hash.get('me'), undefined);
 		hash.put('me', 'myself');
 		assertEquals(hash.get('me'), 'myself');
 	},
 	testPutAll: function () {
 		expectAsserts(2);
-		var hash = new FF.extras.utils.HashMap();
+		var hash = new ObjectJS.extras.utils.HashMap();
 		hash.putAll({
 			me: 'myself',
 			you: 'yourself'
@@ -95,7 +95,7 @@ TestCase("Test the HashMap", {
 	},
 	testRemove: function () {
 		expectAsserts(2);
-		var hash = new FF.extras.utils.HashMap();
+		var hash = new ObjectJS.extras.utils.HashMap();
 		hash.put('me', 'myself');
 		assertEquals(hash.get('me'), 'myself');
 		hash.remove('me');
@@ -103,7 +103,7 @@ TestCase("Test the HashMap", {
 	},
 	testSize: function () {
 		expectAsserts(1);
-		var hash = new FF.extras.utils.HashMap();
+		var hash = new ObjectJS.extras.utils.HashMap();
 		hash.putAll({
 			me: 'myself',
 			you: 'yourself',
@@ -116,7 +116,7 @@ TestCase("Test the HashMap", {
 	},
 	testToString: function () {
 		expectAsserts(1);
-		var hash = new FF.extras.utils.HashMap();
+		var hash = new ObjectJS.extras.utils.HashMap();
 		hash.putAll({
 			me: 'myself',
 			you: 'yourself',
@@ -126,7 +126,7 @@ TestCase("Test the HashMap", {
 	},
 	testValues: function () {
 		expectAsserts(1);
-		var hash = new FF.extras.utils.HashMap();
+		var hash = new ObjectJS.extras.utils.HashMap();
 		hash.putAll({
 			me: 'myself',
 			you: 'yourself',

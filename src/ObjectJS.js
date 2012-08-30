@@ -1,13 +1,13 @@
-/*jslint bitwise: false, browser: true, windows: false, evil: false, white: false, plusplus: true, indent: 4, vars: true, evil:true, regexp:true */
-/*globals FF:true,$:false, TestCase:false,assertEquals:false,expectAsserts:false,assertFunction:false,assertNoException:false, window:false*/
+/*jslint bitwise: false, browser: true, windows: false, evil: false, white: false, plusplus: true, vars: true, evil:true, regexp:true */
+/*globals ObjectJS:true,$:false, TestCase:false,assertEquals:false,expectAsserts:false,assertFunction:false,assertNoException:false, window:false*/
 /**
  * @author scottvanlooy
  */
 /**
  * @namespace contains the library.
  */
-var FF = {};
-(function (ff) {
+var ObjectJS = {};
+(function (Oj) {
 	"use strict";
 	var
 	/** PRIVATE METHODS **/
@@ -65,12 +65,12 @@ var FF = {};
 					return fn.apply(this, combined);
 				};
 			};
-			ff.mixins = ff.mixins || {};
-			ff.core = ff.core || {};
-			ff.extras = ff.extras || {};
-			ff.NOOP = function () {};
-			ff.Console = ff.Console || ff.NOOP;
-			ff.requires('config');
+			Oj.mixins = Oj.mixins || {};
+			Oj.core = Oj.core || {};
+			Oj.extras = Oj.extras || {};
+			Oj.NOOP = function () {};
+			Oj.Console = Oj.Console || Oj.NOOP;
+			Oj.requires('config');
 		},
 		currentView;
 	/** API METHODS **/
@@ -80,13 +80,13 @@ var FF = {};
 	 * @param {string} req - request in the format of 'my.name.space'
 	 * @param {Object} test
 	 */
-	ff.reqNameSpace = function (req, test) {
+	Oj.reqNameSpace = function (req, test) {
 		var t,
 			x,
 			tns,
 			l;
 		if (!req || typeof req !== "string") {
-			ff.Console.error('getNameSpace error - requires a string in the format "my.name.space"');
+			Oj.Console.error('getNameSpace error - requires a string in the format "my.name.space"');
 			return null;
 		}
 		if (!req.match('\\.')) {
@@ -117,7 +117,7 @@ var FF = {};
 	 * (myapp.main.Hello = (function(){}()))
 	 * @param {function=} callback. Optional callback to run when loading is complete.
 	 */
-	ff.requires =  function (requires, callback) {
+	Oj.requires =  function (requires, callback) {
 		var l = requires.length,
 			src,
 			load = 0,
@@ -151,9 +151,9 @@ var FF = {};
 		for (n = 0; n < l; n++) {
 			docallback = false;
 			src = null;
-			if (typeof namespaceTest(ff, requires[n]) === "undefined") {
+			if (typeof namespaceTest(Oj, requires[n]) === "undefined") {
 				src = this.baseUrl + requires[n].replace(/\./gi, '/') + '.js';
-				if (ff.finished) {
+				if (Oj.finished) {
 					loadScript(src, callback, load, requires.length, n);
 				} else {
 					docallback = true;
@@ -175,7 +175,7 @@ var FF = {};
 	 * fractal.min?.js
 	 * @return {string}
 	 */
-	ff.baseUrl = (function () {
+	Oj.baseUrl = (function () {
 		var s = document.getElementsByTagName('script');
 		var m = s[s.length - 1];
 		return m.src.replace(/[^\/]+?$/, '');
@@ -185,7 +185,7 @@ var FF = {};
 	 * @param  {object} object the object to be augmented
 	 * @return {object} the augmented object.
 	 */
-	ff.augmentObject = function (object) {
+	Oj.augmentObject = function (object) {
 		if (!object.augmented) {
 			/**
 			 * extend an object with another object.
@@ -208,7 +208,7 @@ var FF = {};
 		}
 		return object;
 	};
-	ff.initObj = function (obj, ns, fn) {
+	Oj.initObj = function (obj, ns, fn) {
 		if (!ns[obj]) {
 			return false;
 		}
@@ -219,28 +219,28 @@ var FF = {};
 			ns[obj][fn]();
 		}
 	};
-	ff.getView = function () {
+	Oj.getView = function () {
 		return currentView;
 	};
-	ff.view = function (view) {
-		ff.initObj(view, ff.views, 'enter');
-		currentView = ff.views[view];
+	Oj.view = function (view) {
+		Oj.initObj(view, Oj.views, 'enter');
+		currentView = Oj.views[view];
 	};
-	ff.err = function () {
+	Oj.err = function () {
 		if (window.console && window.location.href === 'debug') {
 			window.console.error(arguments);
 		}
 	};
-	ff.log = function () {
+	Oj.log = function () {
 		if (window.console && window.location.href.indexOf('debug') !== -1) {
 			window.console.log(arguments);
 		}
 	};
-	ff.warn = function () {
+	Oj.warn = function () {
 		if (window.console && window.location.href.indexOf('debug') !== -1) {
 			window.console.log(arguments);
 		}
 	};
-	ff.loadScript = loadScript;
+	Oj.loadScript = loadScript;
 	init();
-}(FF));
+}(ObjectJS));

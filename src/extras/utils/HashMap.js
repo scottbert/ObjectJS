@@ -1,11 +1,11 @@
-/*jslint bitwise: false, browser: true, windows: false, evil: false, white: false, plusplus: true, indent: 4 */
-/*globals FF:false,$:false, TestCase:false,assertEquals:false,expectAsserts:false,assertFunction:false,assertNoException:false*/
+/*jslint bitwise: false, browser: true, windows: false, evil: false, white: false, plusplus: true*/
+/*globals ObjectJS:false,$:false, TestCase:false,assertEquals:false,expectAsserts:false,assertFunction:false,assertNoException:false*/
 /**
  * Copyright (c) 2011-2012, Scott van Looy, ThreeSquared.
  * All Rights Reserved.
  * @author Scott van Looy
  */
-FF.reqNameSpace('FF.extras.utils');
+ObjectJS.reqNameSpace('ObjectJS.extras.utils');
 
 (function (utils) {
 	"use strict";
@@ -133,4 +133,4 @@ FF.reqNameSpace('FF.extras.utils');
 		};
 	};
 	utils.HashMap = HashMap;
-}(FF.extras.utils));
+}(ObjectJS.extras.utils));

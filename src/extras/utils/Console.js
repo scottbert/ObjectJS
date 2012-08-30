@@ -1,9 +1,9 @@
-/*jslint bitwise: false, browser: true, windows: false, evil: false, white: false, plusplus: true, indent: 4 */
-/*globals FF:false,$:false, TestCase:false,assertEquals:false,expectAsserts:false,assertFunction:false,assertNoException:false, window:false */
+/*jslint bitwise: false, browser: true, windows: false, evil: false, white: false, plusplus: true */
+/*globals ObjectJS:false,$:false, TestCase:false,assertEquals:false,expectAsserts:false,assertFunction:false,assertNoException:false, window:false */
 /**
  * @author scottvanlooy
  */
-FF.reqNameSpace('FF.extras.utils');
+ObjectJS.reqNameSpace('ObjectJS.extras.utils');
 (function (utils) {
 	"use strict";
 	var Console = (function () {
@@ -29,5 +29,5 @@ FF.reqNameSpace('FF.extras.utils');
 
 	}());
 	utils.Console = Console;
-}(FF.extras.utils));
-FF.Console = FF.extras.utils.Console;
+}(ObjectJS.extras.utils));
+ObjectJS.Console = ObjectJS.extras.utils.Console;

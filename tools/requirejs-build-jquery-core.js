@@ -1,6 +1,6 @@
 ({
 	baseUrl: "../src",
-	name: "fractal",
+	name: "ObjectJS",
 	skipModuleInsertion: true,
 	include: [
 		"core/utils/Core",
@@ -12,5 +12,5 @@
 		"extras/mixins/jQuery",
 		"config"
 	],
-	out:'../compiled/fractal.jquery-core.min.js'
+	out: '../compiled/obj.jquery-core.min.js'
 })

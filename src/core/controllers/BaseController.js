@@ -1,13 +1,13 @@
-/*jslint bitwise: false, browser: true, windows: false, evil: false, white: false, plusplus: true, indent: 4 */
-/*globals FF:false,TestCase:false,assertEquals:false,expectAsserts:false,assertFunction:false,assertNoException:false*/
+/*jslint bitwise: false, browser: true, windows: false, evil: false, white: false, plusplus: true */
+/*globals ObjectJS:false,TestCase:false,assertEquals:false,expectAsserts:false,assertFunction:false,assertNoException:false*/
 /**
  * @author Scott van Looy
  * @constructor
  */
-FF.reqNameSpace('FF.core.controllers');
+ObjectJS.reqNameSpace('ObjectJS.core.controllers');
 (function (controllers) {
 	"use strict";
-	var BaseController = FF.augmentObject({}),
+	var BaseController = ObjectJS.augmentObject({}),
 		xhrlist = [];
 	/** Private methods **/
 	/** Public methods **/
@@ -78,7 +78,7 @@ FF.reqNameSpace('FF.core.controllers');
 		var xhr;
 		if (options.url && typeof options.url === "string") {
 			if (!BaseController.createXHR || !BaseController.createJSONP) {
-				FF.mixins.Controller(BaseController);
+				ObjectJS.mixins.Controller(BaseController);
 			}
 			// If we're on the same domain, we need to do an XHR request, if not we do a JSONP.
 			if (options.url.indexOf(window.location.host) !== -1 && !options.jsonp) {
@@ -96,4 +96,4 @@ FF.reqNameSpace('FF.core.controllers');
 	 */
 	BaseController.createController = BaseController.extend.curry(undefined, BaseController);
 	controllers.BaseController = BaseController;
-}(FF.core.controllers));
+}(ObjectJS.core.controllers));

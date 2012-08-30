@@ -1,13 +1,13 @@
-/*jslint bitwise: false, browser: true, windows: false, evil: false, white: false, plusplus: true, indent: 4, vars: true, evil:true, regexp:true */
-/*globals FF:true,$:false, TestCase:false,assertEquals:false,expectAsserts:false,assertFunction:false,assertNoException:false, window:false*/
+/*jslint bitwise: false, browser: true, windows: false, evil: false, white: false, plusplus: true, vars: true, evil:true, regexp:true */
+/*globals ObjectJS:true,$:false, TestCase:false,assertEquals:false,expectAsserts:false,assertFunction:false,assertNoException:false, window:false*/
 /**
  * @author Scott van Looy
  */
 /**
  * @namespace contains the framework.
  */
-FF.reqNameSpace('FF.core.Templating');
-(function (ff) {
+ObjectJS.reqNameSpace('ObjectJS.core.Templating');
+(function (Oj) {
 	"use strict";
 	var walkTree,
 		processText,
@@ -71,14 +71,14 @@ FF.reqNameSpace('FF.core.Templating');
 		var j;
 		if (typeof name === "string" && typeof json === "string") {
 			processText($node, name, json);
-		} else if (FF.core.utils.ArrayUtils.isArray(json)) {
+		} else if (ObjectJS.core.utils.ArrayUtils.isArray(json)) {
 			processLoop($node, json);
 		} else {
 			for (j in json) {
 				if (json.hasOwnProperty(j) && j !== "enabled" && j !== "obj_attributes") {
 					if (json[j] === null || (json !== null && (typeof json[j] === "string" || json[j].text || json[j].domID || json[j].cssClass || json[j].href))) {
 						processText($node, j, json[j]);
-					} else if (FF.core.utils.ArrayUtils.isArray(json[j])) {
+					} else if (ObjectJS.core.utils.ArrayUtils.isArray(json[j])) {
 						processLoop($node, j, json[j]);
 					} else if (typeof json[j] === "object") {
 						walkTree(nodePath($node, j), json[j]);
@@ -87,5 +87,5 @@ FF.reqNameSpace('FF.core.Templating');
 			}
 		}
 	};
-	ff.renderJSONTemplate = walkTree;
-}(FF.core.Templating));
+	Oj.renderJSONTemplate = walkTree;
+}(ObjectJS.core.Templating));
