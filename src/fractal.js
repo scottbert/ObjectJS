@@ -226,6 +226,21 @@ var FF = {};
 		ff.initObj(view, ff.views, 'enter');
 		currentView = ff.views[view];
 	};
+	ff.err = function () {
+		if (window.console && window.location.href === 'debug') {
+			window.console.error(arguments);
+		}
+	};
+	ff.log = function () {
+		if (window.console && window.location.href.indexOf('debug') !== -1) {
+			window.console.log(arguments);
+		}
+	};
+	ff.warn = function () {
+		if (window.console && window.location.href.indexOf('debug') !== -1) {
+			window.console.log(arguments);
+		}
+	};
 	ff.loadScript = loadScript;
 	init();
 }(FF));

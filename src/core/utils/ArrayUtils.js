@@ -32,5 +32,8 @@ FF.reqNameSpace('FF.core.utils');
 		}
 		return ret;
 	};
+	ArrayUtils.isArray = function (o) {
+		return Object.prototype.toString.call(o) === '[object Array]';
+	};
 	utils.ArrayUtils = ArrayUtils;
 }(FF.core.utils));

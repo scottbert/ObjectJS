@@ -71,6 +71,15 @@ FF.reqNameSpace('FF.core.views');
 		view.uis = loadComponents(namespace, uiMap, view);
 		return view.uis;
 	};
+	BaseView.routes = function () {
+		//write code
+	};
+	BaseView.captureRoutes = function () {
+		//write code
+	};
+	BaseView.captureForms = function () {
+		//write code
+	};
 	/**
 	 * Takes an object and extends it with the BaseView
 	 * @param {Object} object to extend;

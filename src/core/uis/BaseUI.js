@@ -26,7 +26,7 @@ FF.reqNameSpace('FF.core.uis');
 			FF.requires(['core.mixins.Native']);
 		}
 		FF.mixins.UI(this);
-		if (!window.jQuery || window.Zepto) {
+		if (!window.jQuery || !window.Zepto) {
 			this.domNode = FF.mixins.Selector(id);
 		} else {
 			if (id.jquery || id.zepto) {
@@ -43,6 +43,9 @@ FF.reqNameSpace('FF.core.uis');
 	BaseUI.setView = function (view) {
 		this.view = view;
 	};
+	BaseUI.getView = function () {
+		return this.view;
+	};
 	BaseUI.open = function (obj) {
 		setTimeout(function () {
 			obj.domNode.addClass('open');
@@ -58,16 +61,22 @@ FF.reqNameSpace('FF.core.uis');
 		return this.contentNode;
 	};
 	BaseUI.addMethods = function (options) {
-		var method;
+		var method,
+			args;
 		for (method in options) {
-			if (options.hasOwnProperty(method)) {
+			if (options.hasOwnProperty(method) && typeof method === "function") {
 				if (!this[method]) {
 					this[method] = options[method];
 				} else {
 					options['super' + method] = this[method];
 					this[method] = function () {
-						options[method](arguments);
-						options['super' + method](arguments);
+						if (arguments.length === 1) {
+							args = arguments[0];
+						} else {
+							args = arguments;
+						}
+						options[method](args);
+						options['super' + method](args);
 					};
 				}
 			}

@@ -98,7 +98,7 @@ FF.reqNameSpace('FF');
 			 * {
 			 *    "EVENT_FOO" : "onFoo"
 			 * }
-			 * @param {[type]} eventKeys [description]
+			 * @param {Object} eventKeys An object of strings.
 			 */
 			add : function (eventKeys) {
 				var customEvent;
@@ -116,8 +116,18 @@ FF.reqNameSpace('FF');
 			hasEvent : function (key) {
 				return (Registry[key]) ? true : false;
 			},
+			/**
+			 * Remove events from registry
+			 * @param {arguments} arguments list of keys to be removed from the event registry
+			 * @return {[type]} [description]
+			 */
 			remove : function () {
-
+				var l = arguments.length;
+				while (l--) {
+					if (Registry[arguments[l]]) {
+						delete Registry[arguments[l]];
+					}
+				}
 			}
 		};
 	ff.Events = Events;
