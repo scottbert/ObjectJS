@@ -8,6 +8,7 @@
 		"core/controllers/BaseController",
 		"core/views/BaseView",
 		"core/uis/BaseUI",
+		"core/templates/Templates",
 		"core/Events",
 		"extras/mixins/jQuery",
 		"config"

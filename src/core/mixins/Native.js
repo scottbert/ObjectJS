@@ -14,7 +14,7 @@ ObjectJS.reqNameSpace('ObjectJS.extras.mixins');
 		eventBind,
 		eventPrefix,
 		getAttr = function (str, attr) {
-			return str.split((new RegExp('\\b' + attr + '='))[1] || '').split('&')[0];
+			return (str.split(new RegExp('\\b' + attr + '='))[1] || '').split('&')[0];
 		},
 		hijack = function (callback) {
 			return function (e) {
@@ -45,7 +45,7 @@ ObjectJS.reqNameSpace('ObjectJS.extras.mixins');
 			// If we're an ID, get us. getElementById is faster than querySelectorAll - 
 			// this currently works about 10 times faster than jQuery for single IDs and 
 			// nearly twice as fast for more complex queries.
-			if (id.charAt(0).indexOf('#') !== -1 && id.indexOf(' ') === -1) {
+			if (id.charAt(0).indexOf('#') === -1 && id.indexOf(' ') === -1) {
 				Node = document.getElementById(id);
 			} else {
 				Node = document.querySelectorAll(id);
@@ -97,9 +97,9 @@ ObjectJS.reqNameSpace('ObjectJS.extras.mixins');
 					if (t) {
 						fn = t;
 					} else {
-						c = '?';
+						c = '?callback';
 						if (url.indexOf('?') !== -1) {
-							c = '&';
+							c = '&callback';
 						}
 						url += c + '=' + fn;
 					}
@@ -191,6 +191,69 @@ ObjectJS.reqNameSpace('ObjectJS.extras.mixins');
 				ret.push(augment(NodeList[n]));
 			}
 			return ret;
+		},
+		addClass : function (classNames) {
+			function p(o, c) {
+				var e = o || '',
+					ca,
+					pa,
+					l,
+					ia = false,
+					pia = (e.indexOf(' ') !== -1),
+					cia = (c.indexOf(' ') !== -1),
+					cs;
+				if (pia || cia) {
+					if (pia && cia) {
+						return ObjectJS.core.utils.ArrayUtils.combine(e.split(' '), c.split(' ')).join(' ');
+					}
+					pa = (pia) ? e.split(' ') : c.split(' ');
+					cs = (pia) ? c : e;
+					l = pa.length;
+					while (l--) {
+						if (pa[l] === cs) {
+							ia = true;
+						}
+					}
+					if (!ia && cs !== '') {
+						pa.push((cs.trim) ? cs.trim() : cs);
+					}
+					return pa.join(' ');
+				}
+				return (e === '') ? c : e + ' ' + c;
+			}
+			// more than one class
+			if (this.length) {
+				var l = this.length;
+				while (l--) {
+					this[l].setAttribute('class', p(this[l].getAttribute('class'), classNames));
+				}
+			} else {
+				this.setAttribute('class', p(this.getAttribute('class'), classNames));
+			}
+		},
+		removeClass : function (classNames) {
+			var l = this.length;
+			function d(o, s) {
+				o.setAttribute('class', (s.trim) ? o.getAttribute('class').replace(s, '').trim() : o.getAttribute('class').replace(s, ''));
+			}
+			function m(o, cn) {
+				var ca = cn.split(' '),
+					cl = ca.length;
+				if (cl) {
+					while (cl--) {
+						d(o, ca[cl]);
+					}
+				} else {
+					d(o, cn);
+				}
+			}
+			if (l) {
+				while (l--) {
+					m(this[l], classNames);
+				}
+			} else {
+				m(this, classNames);
+			}
 		}
 	};
 	mixins.NativeUI = NativeUI;

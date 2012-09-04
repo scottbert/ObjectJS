@@ -19,6 +19,9 @@ TestCase("Test the Events object", {
 	setUp : function () {
 		foo = {
 			id: 'foo',
+			getView: function () {
+				return true;
+			},
 			onGetData : function (args) {
 				getData = true;
 				return "got data";

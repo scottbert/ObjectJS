@@ -19,6 +19,8 @@ ObjectJS.requires(
 	//uis
 		'core.uis.BaseUI',
 		'core.mixins.Native',
+	//templates
+		'core.Templating',
 	//events
 		'core.Events'
 	],

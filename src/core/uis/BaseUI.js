@@ -26,7 +26,7 @@ ObjectJS.reqNameSpace('ObjectJS.core.uis');
 			ObjectJS.requires(['core.mixins.Native']);
 		}
 		ObjectJS.mixins.UI(this);
-		if (!window.jQuery || !window.Zepto) {
+		if (!window.jQuery && !window.Zepto) {
 			this.domNode = ObjectJS.mixins.Selector(id);
 		} else {
 			if (id.jquery || id.zepto) {

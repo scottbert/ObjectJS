@@ -23,13 +23,16 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-UPDATED GOAL:
-MVC Javascript on both server running Node and client. The same code is run in 
-both, the framework works out what to do with it.
-NOTE: Only the client is finished.
-
-The framework is tiny. core is 5k minified, 2k gzipped. 
-I need to document it somewhat.
+Scott, 4th September 2012
+v 0.7
+Tests fixed. 
+Added addClass and removeClass methods.
+TODO: 
+Need to write tests. 
+Need to create better examples.
+Need to create documentation.
+Known issues:
+JSONP never returns in Opera.
 
 Scott, 30th August 2012
 NEU:
@@ -44,6 +47,14 @@ See https://github.com/scottbert/FractalJS if you have no idea what I'm
 talking about.
 
 Scott, 22 Mar 2012.
+
+UPDATED GOAL:
+MVC Javascript on both server running Node and client. The same code is run in 
+both, the framework works out what to do with it.
+NOTE: Only the client is finished.
+
+The framework is tiny. core is 5k minified, 2k gzipped. 
+I need to document it somewhat.
 
 ORIGINAL GOAL:
 This is a project that has grown out of my day to day work to create a 

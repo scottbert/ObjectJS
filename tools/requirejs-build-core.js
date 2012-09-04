@@ -8,9 +8,10 @@
 		"core/controllers/BaseController",
 		"core/views/BaseView",
 		"core/uis/BaseUI",
+		"core/templates/Templates",
 		"core/mixins/Native",
 		"core/Events",
 		"config"
 	],
-	out: '../compiled/obj.core.min.js'
+	out: '../compiled/objectjs.core.min.js'
 })

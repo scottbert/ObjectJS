@@ -8,6 +8,7 @@
 		"core/controllers/BaseController",
 		"core/views/BaseView",
 		"core/uis/BaseUI",
+		"core/templates/Templates",
 		"core/mixins/Native",
 		"core/Events",
 		"extras/mixins/jQuery",
@@ -16,5 +17,5 @@
 		"extras",
 		"config"
 	],
-	out: '../compiled/obj.all.min.js'
+	out: '../compiled/objectjs.all.min.js'
 })
