@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js">/*jslint bitwise: false, browser: true, windows: false, evil: false, white: false, plusplus: true */
+/*globals ObjectJS:false,$:false, TestCase:false,assertEquals:false,expectAsserts:false,assertFunction:false,assertNoException:false*/
+
+<span id='global-property-'>/**
+</span> * @author Scott van Looy
+ */
+ObjectJS.reqNameSpace('ObjectJS.core.utils');
+<span id='global-method-'>/**
+</span> * takes two arrays of strings and combines them, removing duplicates
+ * @param arr1 {Array} - first array to combine
+ * @param arr2 {Array} - second array to combine
+ * @return ret {Array} - deduped unsorted array of strings
+ */
+(function (utils) {
+	&quot;use strict&quot;;
+	var ArrayUtils = {};
+<span id='global-method-combine'>/** API METHODS **/
+</span>	ArrayUtils.combine = function (arr1, arr2) {
+		var tarr = arr1.concat(arr2),
+			l = tarr.length,
+			o = {},
+			ret = [],
+			n,
+			name;
+		for (n = 0; n &lt; l; n++) {
+			o[tarr[n]] = true;
+		}
+		for (name in o) {
+			if (o.hasOwnProperty(name)) {
+				ret.push(name);
+			}
+		}
+		return ret;
+	};
+	ArrayUtils.isArray = function (o) {
+		return Object.prototype.toString.call(o) === '[object Array]';
+	};
+	utils.ArrayUtils = ArrayUtils;
+}(ObjectJS.core.utils));
+</pre>
+</body>
+</html>
