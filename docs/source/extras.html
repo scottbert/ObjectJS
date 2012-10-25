@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js">/*jslint bitwise: false, browser: true, windows: false, evil: false, white: false, plusplus: true */
+/*globals ObjectJS:false,$:false, TestCase:false,assertEquals:false,expectAsserts:false,assertFunction:false,assertNoException:false*/
+<span id='global-property-'>/**
+</span> * This is the set of extra components that the library doesn't require to run.
+ * If they're included, then when using the automatic build tools, these will be
+ * included. If not, they will be dynamically loaded one at a time.
+ * You can use ObjectJS.requires elsewhere in your codebase to load your own components,
+ * you can also use it to lazy load code.
+ */
+ObjectJS.requires(
+	[
+	// utils
+		'extras.utils.HashMap',
+		'extras.utils.Console',
+	//Mixins
+		'extras.mixins.jQuery'
+	]
+);</pre>
+</body>
+</html>

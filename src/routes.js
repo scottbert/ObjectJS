@@ -4,6 +4,7 @@
  * @author scottvanlooy
  * EXAMPLES OF HOW ROUTING WORK.
  * First required route. Other routes are optional.
+ * WORK IN PROGRESS
  */
 ObjectJS.routes = {
 	'/' : ObjectJS.controllers.ApplicationController,

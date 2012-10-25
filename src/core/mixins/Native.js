@@ -3,7 +3,6 @@
 /**
  * @author scottvanlooy
  */
-ObjectJS.reqNameSpace('ObjectJS.extras.mixins');
 (function (mixins) {
 	"use strict";
 	var augment,
@@ -256,10 +255,7 @@ ObjectJS.reqNameSpace('ObjectJS.extras.mixins');
 			}
 		}
 	};
-	mixins.NativeUI = NativeUI;
-	mixins.NativeSelector = NativeSelector;
-	mixins.NativeController = NativeController;
-}(ObjectJS.extras.mixins));
-ObjectJS.mixins.UI = ObjectJS.extras.mixins.NativeUI;
-ObjectJS.mixins.Selector = ObjectJS.extras.mixins.NativeSelector;
-ObjectJS.mixins.Controller = ObjectJS.extras.mixins.NativeController;
+	mixins.UI = mixins.NativeUI = NativeUI;
+	mixins.Selector = mixins.NativeSelector = NativeSelector;
+	mixins.Controller = mixins.NativeController = NativeController;
+}(ObjectJS.reqNameSpace('ObjectJS.mixins')));

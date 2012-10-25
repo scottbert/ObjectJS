@@ -1,16 +1,16 @@
 /*jslint bitwise: false, browser: true, windows: false, evil: false, white: false, plusplus: true */
-/*globals ObjectJS:false,TestCase:false,assertEquals:false,expectAsserts:false,assertFunction:false,assertNoException:false*/
+/*globals ObjectJS:false,$:false, TestCase:false,assertEquals:false,expectAsserts:false,assertFunction:false,assertNoException:false, jQuery:false, window:false*/
+
 /**
  * @author Scott van Looy
- * @constructor
  */
-ObjectJS.reqNameSpace('ObjectJS.core.controllers');
 (function (controllers) {
 	"use strict";
+	/** PRIVATE METHODS **/
 	var BaseController = ObjectJS.augmentObject({}),
 		xhrlist = [];
-	/** Private methods **/
-	/** Public methods **/
+
+	/** API METHODS **/
 	/**
 	 * On enter of your child controller, you call the view associated with that controller
 	 * using the callView method. It either instantiates the view or if it already exists
@@ -34,7 +34,7 @@ ObjectJS.reqNameSpace('ObjectJS.core.controllers');
 	 * removes tokens in a string and replaces them with values.
 	 * @param  {string} string  the string to replace tokens in:
 	 * in the format of "this is my/{token1}-{token2}/string/{token-3}"
-	 * @param  {[type]} tokens an object of tokens to replace:
+	 * @param  {Object} tokens an object of tokens to replace:
 	 * {
 	 *   token1: 'bert',
 	 *   token2: 'fred',
@@ -96,4 +96,4 @@ ObjectJS.reqNameSpace('ObjectJS.core.controllers');
 	 */
 	BaseController.createController = BaseController.extend.curry(undefined, BaseController);
 	controllers.BaseController = BaseController;
-}(ObjectJS.core.controllers));
+}(ObjectJS.reqNameSpace('ObjectJS.core.controllers')));

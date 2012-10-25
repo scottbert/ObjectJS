@@ -2,16 +2,21 @@
 /*globals ObjectJS:true,$:false, TestCase:false,assertEquals:false,expectAsserts:false,assertFunction:false,assertNoException:false, window:false*/
 /**
  * @author scottvanlooy
- */
-/**
- * @namespace contains the library.
+ * @name { ObjectJS:[name]}
  */
 var ObjectJS = {};
 (function (Oj) {
 	"use strict";
-	var
-	/** PRIVATE METHODS **/
-		loadScript = function (src, cb, load, len, num, err) {
+	/**
+	 * Load a script asynchronously.
+	 * @param  {string}   src  href of the script to load.
+	 * @param  {Function} cb   callback to fire upon loading.
+	 * @param  {Number}   load Scripts remaining to load.
+	 * @param  {Number}   len  Total scripts to load
+	 * @param  {Number}   num  Script index
+	 * @param  {Function}   err  Something to do on error.
+	 */
+	var loadScript = function (src, cb, load, len, num, err) {
 			var s = document.createElement('script');
 			s.type = 'text/javascript';
 			s.src = src;
@@ -53,7 +58,7 @@ var ObjectJS = {};
 						l = args.length,
 						ll = myArgs.length;
 					for (i = 0; i < l; i++) {
-						if (typeof args[i] === "undefined") {
+						if (args[i] === undefined) {
 							for (ii = 0; ii < ll; ii++) {
 								n++;
 								combined.push(myArgs[ii]);
@@ -73,12 +78,12 @@ var ObjectJS = {};
 			Oj.requires('config');
 		},
 		currentView;
-	/** API METHODS **/
 	/**
-	 * reqNameSpace. Requests a namespace. If the namespace does not exist, it will
+	 * Requests a namespace. If the namespace does not exist, it will
 	 * be created
-	 * @param {string} req - request in the format of 'my.name.space'
+	 * @param {String} req - request in the format of 'my.name.space'
 	 * @param {Object} test
+	 * @return {Object} The namespace
 	 */
 	Oj.reqNameSpace = function (req, test) {
 		var t,
@@ -106,16 +111,17 @@ var ObjectJS = {};
 				tns = tns[t[x]] = {};
 			}
 		}
+		return tns;
 	};
 	/**
-	 * requires method. Using the location of fractal.min?.js as the base, can
+	 * requires method. Using the location of object.min?.js as the base, can
 	 * load other modules. Checks to see if they exist and if they don't, we grab
 	 * the module.
 	 * @param {Array} requires - array of strings representing a component's path.
 	 * 'myapp/main/Hello.js' would be written as 'myapp.main.Hello' and Hello.js
 	 * would contains an object at the same namespace
 	 * (myapp.main.Hello = (function(){}()))
-	 * @param {function=} callback. Optional callback to run when loading is complete.
+	 * @param {Function} [callback]. Optional callback to run when loading is complete.
 	 */
 	Oj.requires =  function (requires, callback) {
 		var l = requires.length,
@@ -138,7 +144,7 @@ var ObjectJS = {};
 				ret = window;
 			}
 			for (p = 0; p < l; p++) {
-				if (typeof ret !== "undefined") {
+				if (ret !== undefined) {
 					ret = ret[strArr[p]];
 				}
 			}
@@ -151,7 +157,7 @@ var ObjectJS = {};
 		for (n = 0; n < l; n++) {
 			docallback = false;
 			src = null;
-			if (typeof namespaceTest(Oj, requires[n]) === "undefined") {
+			if (namespaceTest(Oj, requires[n]) === undefined) {
 				src = this.baseUrl + requires[n].replace(/\./gi, '/') + '.js';
 				if (Oj.finished) {
 					loadScript(src, callback, load, requires.length, n);
@@ -172,7 +178,7 @@ var ObjectJS = {};
 	};
 	/**
 	 * The base URL for library scripts - determined by the location of
-	 * fractal.min?.js
+	 * object.min?.js
 	 * @return {string}
 	 */
 	Oj.baseUrl = (function () {
@@ -182,18 +188,18 @@ var ObjectJS = {};
 	}());
 	/**
 	 * Augment the object, adding a few shared methods to it.
-	 * @param  {object} object the object to be augmented
-	 * @return {object} the augmented object.
+	 * @param  {Object} object the object to be augmented
+	 * @return {Object} the augmented object.
 	 */
 	Oj.augmentObject = function (object) {
 		if (!object.augmented) {
 			/**
 			 * extend an object with another object.
 			 *
-			 * @param  {function} item       child function
-			 * @param  {function|object} Inheritant parent function/object
+			 * @param  {Function} item       child function
+			 * @param  {Function|Object} Inheritant parent function/object
 			 *
-			 * @return {[type]}            [description]
+			 * @return {Object}            Returns the object with its augmentation
 			 */
 			object.extend = object.extend || function (Child, Parent) {
 				if (typeof Parent === "function") {
@@ -208,6 +214,13 @@ var ObjectJS = {};
 		}
 		return object;
 	};
+	/**
+	 * Initialise an object
+	 * @param  {String}   obj the name of the object to initialise
+	 * @param  {Object}   ns  the namespace it lives in
+	 * @param  {Function} [fn]  A function to run on the newly initialised object.
+	 * @return {Object}       The new object
+	 */
 	Oj.initObj = function (obj, ns, fn) {
 		if (!ns[obj]) {
 			return false;
@@ -218,24 +231,42 @@ var ObjectJS = {};
 		if (ns[obj][fn]) {
 			ns[obj][fn]();
 		}
+		return ns[obj];
 	};
+	/**
+	 * Returns a reference to the current active view.
+	 * @return {Object} a reference to the current active view.
+	 */
 	Oj.getView = function () {
 		return currentView;
 	};
+	/**
+	 * Calls a view. Used at the bottom of an HTML page to call the associated JS view with that page.
+	 * @param  {String} view The view name
+	 */
 	Oj.view = function (view) {
 		Oj.initObj(view, Oj.views, 'enter');
 		currentView = Oj.views[view];
 	};
+	/**
+	 * If the string "debug" appears in the URL, we write to the console if there is one whatever we feed into this function.
+	 */
 	Oj.err = function () {
 		if (window.console && window.location.href === 'debug') {
 			window.console.error(arguments);
 		}
 	};
+	/**
+	 * If the string "debug" appears in the URL, we write to the console if there is one whatever we feed into this function.
+	 */
 	Oj.log = function () {
 		if (window.console && window.location.href.indexOf('debug') !== -1) {
 			window.console.log(arguments);
 		}
 	};
+	/**
+	 * If the string "debug" appears in the URL, we write to the console if there is one whatever we feed into this function.
+	 */
 	Oj.warn = function () {
 		if (window.console && window.location.href.indexOf('debug') !== -1) {
 			window.console.log(arguments);

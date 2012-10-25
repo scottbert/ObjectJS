@@ -3,21 +3,10 @@
 /**
  * @author Scott van Looy
  */
-
-/**
- * Request our namespace
- */
-ObjectJS.reqNameSpace('ObjectJS.core.views');
-
-/**
- * Closure to create our object
- * @param  {Object} views Namespace this should live at
- * @return {Object}       Namespace that includes our object
- */
 (function (views) {
 	"use strict";
-	var BaseView = ObjectJS.augmentObject({}),
 	/** PRIVATE METHODS **/
+	var BaseView = ObjectJS.augmentObject({}),
 		defaults = [],
 		loadComponents = function (namespace, uisArray, view, addToDefaults) {
 			var arr = ObjectJS.core.utils.ArrayUtils.combine(defaults, uisArray),
@@ -45,7 +34,7 @@ ObjectJS.reqNameSpace('ObjectJS.core.views');
 	 * called once in your project as it replaces everything each time.
 	 * generally you would call this from your app view.
 	 * @param {Object} ns - the namespace your UIs can be found under.
-	 * @param {string} arr - An array of UI names.
+	 * @param {String} arr - An array of UI names.
 	 */
 	BaseView.setDefaultComponents = function (namespace, arr) {
 		defaults = [];
@@ -88,14 +77,14 @@ ObjectJS.reqNameSpace('ObjectJS.core.views');
 	BaseView.createView = BaseView.extend.curry(undefined, BaseView);
 	/**
 	 * This is where you can find an object representing your UIs once you've called requires
-	 * @type {[type]}
+	 * @type {Object}
 	 */
 	BaseView.uis = null;
 	/**
-	 * This is a reference to the controller that
-	 * @type {[type]}
+	 * This is a reference to the controller that instantiated the view
+	 * @type {Object}
 	 */
 	BaseView.controller = null;
 
 	views.BaseView = BaseView;
-}(ObjectJS.core.views));
+}(ObjectJS.reqNameSpace('ObjectJS.core.views')));

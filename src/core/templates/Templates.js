@@ -6,7 +6,6 @@
 /**
  * @namespace contains the framework.
  */
-ObjectJS.reqNameSpace('ObjectJS.core.Templating');
 (function (Oj) {
 	"use strict";
 	var walkTree,
@@ -88,4 +87,4 @@ ObjectJS.reqNameSpace('ObjectJS.core.Templating');
 		}
 	};
 	Oj.renderJSONTemplate = walkTree;
-}(ObjectJS.core.Templating));
+}(ObjectJS.reqNameSpace('ObjectJS.core.Templating')));
