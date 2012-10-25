@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js">/*jslint bitwise: false, browser: true, windows: false, evil: false, white: false, plusplus: true */
+/*globals ObjectJS:false,$:false, TestCase:false,assertEquals:false,expectAsserts:false,assertFunction:false,assertNoException:false, window:false */
+<span id='global-property-'>/**
+</span> * @author scottvanlooy
+ */
+ObjectJS.reqNameSpace('ObjectJS.extras.utils');
+(function (utils) {
+	&quot;use strict&quot;;
+	var Console = (function () {
+		var Nlog,
+			log,
+			warn,
+			error;
+		Nlog = function (type) {
+			if (window.console) {
+				return function () {
+					window.console[type](arguments);
+				};
+			}
+		};
+		log = new Nlog('log');
+		warn = new Nlog('warn');
+		error = new Nlog('error');
+		return {
+			log: log,
+			warn: warn,
+			error: error
+		};
+
+	}());
+	utils.Console = Console;
+}(ObjectJS.extras.utils));
+ObjectJS.Console = ObjectJS.extras.utils.Console;</pre>
+</body>
+</html>

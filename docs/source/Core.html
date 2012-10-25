@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js">/*jslint bitwise: false, browser: true, windows: false, evil: false, white: false, plusplus: true */
+/*globals ObjectJS:false,$:false, TestCase:false,assertEquals:false,expectAsserts:false,assertFunction:false,assertNoException:false*/
+
+<span id='global-method-'>/**
+</span> * reqNameSpace - requests a namespace associated with the internal ns namespace
+ * @param {string} req - string representing the namespace requested, eg 'ns.util.foo'
+ */
+ObjectJS.reqNameSpace('ObjectJS.core.utils');
+(function (utils) {
+	&quot;use strict&quot;;
+<span id='global-method-empty'>	/** empty function, used as a stub **/
+</span>	var empty = function () {};
+	utils.Console = empty;
+}(ObjectJS.core.utils));</pre>
+</body>
+</html>

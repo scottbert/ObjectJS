@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js">/*jslint bitwise: false, browser: true, windows: false, evil: false, white: false, plusplus: true, vars: true, evil:true, regexp:true */
+/*globals ObjectJS:true,$:false, TestCase:false,assertEquals:false,expectAsserts:false,assertFunction:false,assertNoException:false, window:false*/
+<span id='global-property-'>/**
+</span> * @author Scott van Looy
+ */
+<span id='global-property-'>/**
+</span> * @namespace contains the framework.
+ */
+(function (Oj) {
+	&quot;use strict&quot;;
+	var walkTree,
+		processText,
+		processLoop,
+		nodePath;
+	nodePath = function ($node, name) {
+		if (typeof name !== &quot;string&quot;) {
+			return;
+		}
+		return $node.find('[data-json=' + name + ']');
+	};
+	processText = function ($node, name, text) {
+		var n = nodePath($node, name),
+			p;
+		if (n) {
+			p = n.parent().removeClass('template');
+			n.removeClass('template');
+			if (text === null) {
+				n.addClass('template');
+				return;
+			}
+			if (text.domID) {
+				n.attr('id', text.domID);
+			}
+			if (text.cssClass) {
+				n.addClass(text.cssClass);
+			}
+			if (text.href) {
+				n.attr('href', text.href);
+			}
+			if (text.text || typeof text === &quot;string&quot;) {
+				n.html(text.text || text);
+			}
+			return true;
+		}
+		return false;
+	};
+	processLoop = function ($node, name, array) {
+		var n = nodePath($node, name),
+			l = array.length,
+			i,
+			p,
+			tmp;
+		if (!n.length) {
+			n = $node;
+		}
+		p = n.parent();
+		n = n.remove().eq(0).removeClass('template');
+		p.empty();
+		for (i = 0; i &lt; l; i++) {
+			tmp = n.clone();
+			if (typeof array[i] === &quot;string&quot;) {
+				tmp.html(array[i]);
+			} else {
+				walkTree(tmp, array[i], name);
+			}
+			p.append(tmp);
+		}
+	};
+	walkTree = function ($node, json, name) {
+		var j;
+		if (typeof name === &quot;string&quot; &amp;&amp; typeof json === &quot;string&quot;) {
+			processText($node, name, json);
+		} else if (ObjectJS.core.utils.ArrayUtils.isArray(json)) {
+			processLoop($node, json);
+		} else {
+			for (j in json) {
+				if (json.hasOwnProperty(j) &amp;&amp; j !== &quot;enabled&quot; &amp;&amp; j !== &quot;obj_attributes&quot;) {
+					if (json[j] === null || (json !== null &amp;&amp; (typeof json[j] === &quot;string&quot; || json[j].text || json[j].domID || json[j].cssClass || json[j].href))) {
+						processText($node, j, json[j]);
+					} else if (ObjectJS.core.utils.ArrayUtils.isArray(json[j])) {
+						processLoop($node, j, json[j]);
+					} else if (typeof json[j] === &quot;object&quot;) {
+						walkTree(nodePath($node, j), json[j]);
+					}
+				}
+			}
+		}
+	};
+	Oj.renderJSONTemplate = walkTree;
+}(ObjectJS.reqNameSpace('ObjectJS.core.Templating')));</pre>
+</body>
+</html>
