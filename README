@@ -28,6 +28,7 @@ v 0.8
 Upgraded to jsTD 1.3.5
 Code coverage now works.
 Added JSDuck documentation in docs/
+Created http://scottbert.github.com/ObjectJS/
 Fixed JSONP in Opera
 TODO:
 Write more tests/documentation.
