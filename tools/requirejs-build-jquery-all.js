@@ -11,7 +11,10 @@
 		"core/templates/Templates",
 		"core/Events",
 		"extras/mixins/jQuery",
+		"extras/utils/HashMap",
+		"extras/utils/Console",
+		"extras",
 		"config"
 	],
-	out: '../compiled/objectjs-jquery.min.js'
+	out: '../compiled/objectjs-jquery-all.min.js'
 })

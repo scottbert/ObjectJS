@@ -1,0 +1,5 @@
+./jsTestDriver.sh will start the runner. After starting, visit http://localhost:6789 to capture a browser for running the tests on.
+./runTests.sh will run all the tests.
+
+Note: Code coverage doesn't appear to work for me in Safari Version 6.0.2 (8536.26.17) on Mountain Lion. (http://code.google.com/p/js-test-driver/issues/detail?id=410)
+There is also a bug in the coverage plugin causing Opera to hang (http://code.google.com/p/js-test-driver/issues/detail?id=357)

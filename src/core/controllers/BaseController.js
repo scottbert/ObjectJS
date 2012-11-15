@@ -56,8 +56,10 @@
 	 * for JSON requests, can only GET for JSONP. Technically, JSONP is insecure,
 	 * be very careful when using it, make sure the 3rd party is trustworthy.
 	 * @param  {Object} options an object containing the information you require.
+	 * 
+	 * <pre>
 	 * {
-	 *   url:{string},         the URL we get the data from. If JSONP, should either
+	 *   url:{string}          the URL we get the data from. If JSONP, should either
 	 *                         include ?callback= parameter for services that don't
 	 *                         allow dynamic callback assignments, or be callback
 	 *                         parameter free to allow this code to assign one.
@@ -70,9 +72,10 @@
 	 *   error:{function()},   callback function to do something on error. This will
 	 *                         be passed an object representing the error.
 	 *
-	 *   jsonp:{string}        when set, forces JSONP with the specified string
-	 *                         as callback name
+	 *   jsonp:{string}        when set, forces JSONP with the specified string as callback name
 	 * }
+	 * 
+	 * </pre>
 	 */
 	BaseController.getData = function (options) {
 		var xhr;

@@ -11,7 +11,10 @@
 		"core/templates/Templates",
 		"core/mixins/Native",
 		"core/Events",
+		"extras/utils/HashMap",
+		"extras/utils/Console",
+		"extras",
 		"config"
 	],
-	out: '../compiled/objectjs.core.min.js'
+	out: '../compiled/objectjs-all.min.js'
 })

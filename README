@@ -23,6 +23,13 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+Scott, 15th Nov 2012
+v 0.8.1
+Moved things about a bit
+Modified the build script to build everything in a simpler way
+Included jQuery version, but no tests, DO NOT USE.
+Discovered a bug in coverage tool, see README in tests.
+
 Scott, 25th October 2012
 v 0.8
 Upgraded to jsTD 1.3.5
