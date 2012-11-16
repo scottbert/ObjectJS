@@ -5,25 +5,53 @@ TestCase("Test the fractaljs methods", {
 	setUp: function () {
 		delete ObjectJS.namespace;
 		delete ObjectJS.extras.Dummy;
+		delete ObjectJS.uis;
+		delete ObjectJS.views;
 		Foo = function () {
-			"use strict";
 			this.myFunction = function () {
 				return 'my function';
 			};
 		};
-		ObjectJS.reqNameSpace('ObjectJS.extras');
-		(function () {
-			var Dummy = {
-				iExist : function () {
+		(function (ns) {
+			var Dummy = function () {
+				this.iExist = function () {
 					return 'iDo';
-				}
+				};
 			};
-			ObjectJS.extras.Dummy = Dummy;
-		}());
+			ns.Dummy = Dummy;
+		}(ObjectJS.reqNameSpace('ObjectJS.extras')));
+		(function (ns) {
+			var Dummy = function () {
+				this.runTest = function () {
+					this.iHaveRun = 'yes';
+				};
+			};
+			ns.Dummy = Dummy;
+		}(ObjectJS.reqNameSpace('ObjectJS.uis')));
+		(function (ns) {
+			var Dummy2 = function () {
+				this.runTest = function () {
+					this.iHaveRun = 'yes';
+				};
+			};
+			ns.Dummy2 = Dummy2;
+		}(ObjectJS.reqNameSpace('ObjectJS.uis')));
+		(function (ns) {
+			var Dummy = function () {
+				this.enter = function () {
+					this.enterHasRun = 'yes';
+				};
+			};
+			ns.Dummy = Dummy;
+		}(ObjectJS.reqNameSpace('ObjectJS.views')));
 	},
 	tearDown: function () {
 		Foo = null;
 		ObjectJS.extras.Dummy = null;
+	},
+	"test init" : function () {
+		expectAsserts(1);
+		assertObject(ObjectJS);
 	},
 	"test Function.prototype.curry method" : function () {
 		expectAsserts(3);
@@ -42,7 +70,7 @@ TestCase("Test the fractaljs methods", {
 		assertEquals("\"I think I might go out\", Simon says.", simonSays('I ', 'think ', 'I ', 'might ', 'go ', 'out'));
 	},
 	"test reqNameSpace function to request a namespace" : function () {
-		expectAsserts(4);
+		expectAsserts(6);
 		assertUndefined(ObjectJS.namespace);
 		ObjectJS.reqNameSpace('ObjectJS.namespace');
 		assertObject(ObjectJS.namespace);
@@ -50,36 +78,98 @@ TestCase("Test the fractaljs methods", {
 		assertObject(ObjectJS.core.views);
 		ObjectJS.reqNameSpace('ObjectJS.core.views.namespace');
 		assertObject(ObjectJS.core.views.namespace);
+		assertFalse(ObjectJS.reqNameSpace('ObjectJS.core.woobie', true));
+		assertUndefined(ObjectJS.core.woobie);
 	},
 	"test requires function to request an additional module" : function () {
-		expectAsserts(1);
+		expectAsserts(3);
 		ObjectJS.requires('extras.Dummy', function () {
+			assertFunction(ObjectJS.extras.Dummy);
+			ObjectJS.extras.Dummy = new ObjectJS.extras.Dummy();
 			assertObject(ObjectJS.extras.Dummy);
+			assertString(ObjectJS.extras.Dummy.iExist());
 		});
 		ObjectJS.requires('extras.Foo', function () {
 			// should never get here
 			assertObject(ObjectJS.extras.Dummy);
 		});
 	},
-	"test augmentObject function to add items to an object" : function () {
+	"test baseURL property" : function () {
 		expectAsserts(1);
+		assertString(ObjectJS.baseUrl);
+	},
+	"test augmentObject function to add items to an object" : function () {
+		expectAsserts(2);
+		assertNull(ObjectJS.augmentObject());
 		var o = ObjectJS.augmentObject({});
 		assertFunction(o.extend);
 	},
 	"test extend function to extend a function with another function" : function () {
-		expectAsserts(3);
-		var obj1 = function () {
-			this.method1 = 'method1';
-		},
-		obj2 = function () {
-			this.method2 = 'method2';
-		},
-		o = ObjectJS.augmentObject({});
+		expectAsserts(4);
+		var Obj1 = function () {
+				this.prop1 = 'prop1';
+			},
+			Obj2 = function () {
+				this.prop2 = 'prop2';
+			},
+			o = ObjectJS.augmentObject({});
+		assertNull(o.extend());
 		assertNoException(function () {
-			o.extend(obj1, obj2);
+			o.extend(Obj1, Obj2);
 		});
-		obj1 = new obj1();
-		assertEquals('method1', obj1.method1);
-		assertEquals('method2', obj1.method2);
+		Obj1 = new Obj1();
+		assertEquals('prop1', Obj1.prop1);
+		assertEquals('prop2', Obj1.prop2);
+	},
+	"test initObj function" : function () {
+		expectAsserts(7);
+		assertNull(ObjectJS.initObj());
+		assertNull(ObjectJS.initObj('Dummy'));
+		assertFunction(ObjectJS.uis.Dummy);
+		ObjectJS.initObj('Dummy', ObjectJS.uis);
+		assertObject(ObjectJS.uis.Dummy);
+		assertUndefined(ObjectJS.uis.Dummy.iHaveRun);
+		ObjectJS.initObj('Dummy2', ObjectJS.uis, 'runTest');
+		assertObject(ObjectJS.uis.Dummy2);
+		assertString(ObjectJS.uis.Dummy2.iHaveRun);
+	},
+	"test getView function without view" : function () {
+		expectAsserts(1);
+		assertUndefined(ObjectJS.getView());
+	},
+	"test view function" : function () {
+		expectAsserts(2);
+		assertFunction(ObjectJS.views.Dummy);
+		ObjectJS.view('Dummy');
+		assertObject(ObjectJS.views.Dummy);
+	},
+	"test getView function with view" : function () {
+		expectAsserts(1);
+		assertObject(ObjectJS.getView());
+	},
+	"test err function with view" : function () {
+		expectAsserts(1);
+		assertTrue(ObjectJS.err('Hi'));
+	},
+	"test log function with view" : function () {
+		expectAsserts(1);
+		assertTrue(ObjectJS.log('Hi'));
+	},
+	"test warn function with view" : function () {
+		expectAsserts(1);
+		assertTrue(ObjectJS.warn('Hi'));
+	}
+});
+AsyncTestCase("Test loadScript asynchronously", {
+	"test loadScript" : function (queue) {
+		expectAsserts(1);
+		var dataObj;
+		queue.call('call loadScript', function (callbacks) {
+			ObjectJS.loadScript('//ajax.googleapis.com/ajax/libs/dojo/1.8.1/dojo/dojo.js', function () {
+				queue.call('check loadScript returned an Dojo from Google', function () {
+					assertObject(window.dojo);
+				});
+			});
+		});
 	}
 });

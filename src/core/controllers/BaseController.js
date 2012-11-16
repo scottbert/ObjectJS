@@ -21,6 +21,10 @@
 	 */
 	BaseController.callView = function (namespace, view) {
 		var ret;
+		if (typeof namespace === "undefined" || typeof view === "undefined") {
+			BaseController.err('tried to call', view, 'on ', namespace, 'namespace');
+			return null;
+		}
 		if (typeof namespace[view] === "function") {
 			namespace[view] = new namespace[view]();
 			namespace[view].controller = this;
@@ -43,6 +47,10 @@
 	 * @return {string}         tokenised string.
 	 */
 	BaseController.tokeniser = function (string, tokens) {
+		if (typeof string === "undefined" || typeof tokens === "undefined") {
+			BaseController.err('tried to tokenise', string, 'with ', tokens);
+			return null;
+		}
 		var token;
 		for (token in tokens) {
 			if (tokens.hasOwnProperty(token)) {

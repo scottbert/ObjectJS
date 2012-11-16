@@ -9,8 +9,8 @@
 		"core/views/BaseView",
 		"core/uis/BaseUI",
 		"core/templates/Templates",
+		"mixins/jQuery",
 		"core/Events",
-		"extras/mixins/jQuery",
 		"config"
 	],
 	out: '../compiled/objectjs-jquery.min.js'

@@ -37,6 +37,16 @@ TestCase("Test the BaseController object", {
 			};
 			init();
 		};
+		test.TestView2 = function () {
+			var that = this,
+				init = function () {
+					return that.enter();
+				};
+			this.enter = function () {
+				this.entered = "example text 2";
+			};
+			init();
+		};
 		ObjectJS.core.views.BaseView.createView(test.TestView);
 		test.string = "I think {token1} should be replaced with {token2} and {token3} or {token4}";
 		test.tokens = {
@@ -62,10 +72,23 @@ TestCase("Test the BaseController object", {
 		assertObject(test.TestView);
 		assertEquals(test.TestController.getExampleText(), "example text");
 	},
+	"test callView" : function () {
+		expectAsserts(6);
+		ObjectJS.core.controllers.BaseController.createController(test.TestController);
+		assertFunction(test.TestView2);
+		test.TestController = new test.TestController();
+		assertNull(test.TestController.callView());
+		assertNull(test.TestController.callView('TestView2'));
+		assertObject(test.TestController.callView(test, 'TestView2'));
+		assertObject(test.TestView2);
+		assertEquals(test.TestView2.entered, "example text 2");
+	},
 	"test tokenizer" : function () {
-		expectAsserts(3);
+		expectAsserts(5);
 		ObjectJS.core.controllers.BaseController.createController(test.TestController);
 		test.TestController = new test.TestController();
+		assertNull(test.TestController.tokeniser());
+		assertNull(test.TestController.tokeniser(test.string));
 		assertEquals('I think life should be replaced with taxis and death or bling', test.TestController.tokeniser(test.string, test.tokens));
 		assertNotEquals('I like foo and foo with foo', test.TestController.tokeniser('I like {token5} and {token5} with {token5}', test.tokens));
 		assertEquals('I like foo and foo with foo', test.TestController.tokeniser('I like {token6} and {token6} with {token6}', test.tokens));

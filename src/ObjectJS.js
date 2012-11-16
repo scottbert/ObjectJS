@@ -82,8 +82,8 @@ var ObjectJS = {};
 	 * Requests a namespace. If the namespace does not exist, it will
 	 * be created
 	 * @param {String} req - request in the format of 'my.name.space'
-	 * @param {Object} test
-	 * @return {Object} The namespace
+	 * @param {Object} test - test for a mamespace.
+	 * @return {Object|false} The namespace or false if test is true and the namespace doesn't exist
 	 */
 	Oj.reqNameSpace = function (req, test) {
 		var t,
@@ -192,6 +192,10 @@ var ObjectJS = {};
 	 * @return {Object} the augmented object.
 	 */
 	Oj.augmentObject = function (object) {
+		if (typeof object === "undefined") {
+			Oj.err('tried to augment', object);
+			return null;
+		}
 		if (!object.augmented) {
 			/**
 			 * extend an object with another object.
@@ -202,6 +206,10 @@ var ObjectJS = {};
 			 * @return {Object}            Returns the object with its augmentation
 			 */
 			object.extend = object.extend || function (Child, Parent) {
+				if (typeof Child === "undefined" || typeof Parent === "undefined") {
+					Oj.err('Tried to extend', Child, 'with', Parent);
+					return null;
+				}
 				if (typeof Parent === "function") {
 					Child.prototype = new Parent();
 					Child.constructor = Child;
@@ -210,6 +218,7 @@ var ObjectJS = {};
 					Child.constructor = Child;
 				}
 			};
+			object.err = Oj.err;
 			object.augmented = true;
 		}
 		return object;
@@ -218,12 +227,13 @@ var ObjectJS = {};
 	 * Initialise an object
 	 * @param  {String}   obj the name of the object to initialise
 	 * @param  {Object}   ns  the namespace it lives in
-	 * @param  {Function} [fn]  A function to run on the newly initialised object.
+	 * @param  {String} [fn]  A function to run on the newly initialised object.
 	 * @return {Object}       The new object
 	 */
 	Oj.initObj = function (obj, ns, fn) {
-		if (!ns[obj]) {
-			return false;
+		if (!ns || !ns[obj]) {
+			Oj.err('Attempted to init object', obj, 'in namespace', ns, 'failed.');
+			return null;
 		}
 		if (typeof ns[obj] === 'function') {
 			ns[obj] = new ns[obj]();
@@ -255,6 +265,7 @@ var ObjectJS = {};
 		if (window.console && window.location.href === 'debug') {
 			window.console.error(arguments);
 		}
+		return true;
 	};
 	/**
 	 * If the string "debug" appears in the URL, we write to the console if there is one whatever we feed into this function.
@@ -263,6 +274,7 @@ var ObjectJS = {};
 		if (window.console && window.location.href.indexOf('debug') !== -1) {
 			window.console.log(arguments);
 		}
+		return true;
 	};
 	/**
 	 * If the string "debug" appears in the URL, we write to the console if there is one whatever we feed into this function.
@@ -271,6 +283,7 @@ var ObjectJS = {};
 		if (window.console && window.location.href.indexOf('debug') !== -1) {
 			window.console.log(arguments);
 		}
+		return true;
 	};
 	Oj.loadScript = loadScript;
 	init();
