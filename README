@@ -23,6 +23,13 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+CHANGELOG:
+Scott, 16th Nov 2012
+v 0.8.2
+Added more unit tests
+Moved mixins about
+Added some fail cases for some of the methods
+
 Scott, 15th Nov 2012
 v 0.8.1
 Moved things about a bit

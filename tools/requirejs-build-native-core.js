@@ -9,8 +9,8 @@
 		"core/views/BaseView",
 		"core/uis/BaseUI",
 		"core/templates/Templates",
-		"core/mixins/Native",
 		"core/Events",
+		"mixins/Native",
 		"config"
 	],
 	out: '../compiled/objectjs.min.js'

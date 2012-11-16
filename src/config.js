@@ -18,11 +18,12 @@ ObjectJS.requires(
 		'core.views.BaseView',
 	//uis
 		'core.uis.BaseUI',
-		'core.mixins.Native',
 	//templates
 		'core.templates.Templates',
 	//events
-		'core.Events'
+		'core.Events',
+	//mixin
+		'mixins.Native'
 	],
 	function () {
 		"use strict";
