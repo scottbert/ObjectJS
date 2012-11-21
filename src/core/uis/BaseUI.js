@@ -29,15 +29,7 @@
 			ObjectJS.requires(['core.mixins.Native']);
 		}
 		ObjectJS.mixins.UI(this);
-		if (!window.jQuery && !window.Zepto) {
-			this.domNode = ObjectJS.mixins.Selector(id);
-		} else {
-			if (id.jquery || id.zepto) {
-				this.domNode = id;
-			} else {
-				this.domNode = BaseUI.root.find(id).eq(0);
-			}
-		}
+		this.domNode = ObjectJS.mixins.Selector(id);
 		this.contentNode = this.domNode.find('.content');
 		this.headerNode = this.domNode.find('.title');
 		this.templateNode = this.domNode.find('.template').remove();
@@ -124,5 +116,5 @@
 	 */
 	BaseUI.createUI = BaseUI.extend.curry(undefined, BaseUI);
 	uis.BaseUI = BaseUI;
-}(ObjectJS.reqNameSpace('ObjectJS.core.uis')));
+}(ObjectJS.reqNameSpace('ObjectJS.core.uis'), window.jQuery || window.Zepto));
 

@@ -9,12 +9,12 @@
 		"core/views/BaseView",
 		"core/uis/BaseUI",
 		"core/templates/Templates",
-		"mixins/jQuery",
 		"core/Events",
+		"mixins/jQuery",
 		"extras/utils/HashMap",
 		"extras/utils/Console",
 		"extras",
-		"config"
+		"jqzconfig"
 	],
 	out: '../compiled/objectjs-jquery-all.min.js'
 })

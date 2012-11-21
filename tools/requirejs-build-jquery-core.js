@@ -11,7 +11,7 @@
 		"core/templates/Templates",
 		"mixins/jQuery",
 		"core/Events",
-		"config"
+		"jqzconfig"
 	],
 	out: '../compiled/objectjs-jquery.min.js'
 })

@@ -97,7 +97,7 @@
 			} else {
 				xhr = BaseController.createJSONP(options.jsonp);
 			}
-			xhr.open(options.url, options.success, options.error);
+			xhr.open(options);
 		}
 	};
 	/**

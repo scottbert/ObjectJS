@@ -57,7 +57,7 @@ var HelloNamespace = {};
 	ns.uis.HelloWorld = function (view) {
 		var HelloWorld = this,
 			init = function () {
-				HelloWorld.setupUI('HelloWorld');
+				HelloWorld.setupUI('#HelloWorld');
 			};
 		HelloWorld.view = view;
 		HelloWorld.open = function () {
@@ -77,7 +77,6 @@ var HelloNamespace = {};
 				e.preventDefault();
 				ObjectJS.core.controllers.BaseController.getData(options);
 			});
-			HelloWorld.superOpen();
 		};
 		init();
 	};

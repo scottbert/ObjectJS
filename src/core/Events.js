@@ -117,5 +117,5 @@
 			}
 		}
 	};
-	Oj.Events = Events;
+	Oj.Events = Oj.core.Events = Events;
 }(ObjectJS));

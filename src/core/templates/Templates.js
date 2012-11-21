@@ -86,5 +86,6 @@
 			}
 		}
 	};
-	Oj.renderJSONTemplate = walkTree;
-}(ObjectJS.reqNameSpace('ObjectJS.core.Templating')));
+	Oj.Templates = {};
+	Oj.Templates.renderJSONTemplate = walkTree;
+}(ObjectJS.reqNameSpace('ObjectJS.core.templates')));

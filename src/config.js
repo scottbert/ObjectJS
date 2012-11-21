@@ -7,7 +7,7 @@
  * elsewhere in your codebase to load your own components, you can also use it to
  * lazy load code.
  */
-ObjectJS.requires(
+ObjectJS.config =
 	[
 	// utils
 		'core.utils.Core',
@@ -22,9 +22,10 @@ ObjectJS.requires(
 		'core.templates.Templates',
 	//events
 		'core.Events',
-	//mixin
+	//mixins
 		'mixins.Native'
-	],
+	];
+ObjectJS.requires(ObjectJS.config,
 	function () {
 		"use strict";
 		ObjectJS.finished = true;

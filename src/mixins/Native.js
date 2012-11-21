@@ -44,8 +44,8 @@
 			// If we're an ID, get us. getElementById is faster than querySelectorAll - 
 			// this currently works about 10 times faster than jQuery for single IDs and 
 			// nearly twice as fast for more complex queries.
-			if (id.charAt(0).indexOf('#') === -1 && id.indexOf(' ') === -1) {
-				Node = document.getElementById(id);
+			if (id.charAt(0).indexOf('#') !== -1 && id.indexOf(' ') === -1) {
+				Node = document.getElementById(id.substring(1));
 			} else {
 				Node = document.querySelectorAll(id);
 			}
@@ -74,10 +74,13 @@
 			Controller.createJSONP = function (cbname) {
 				var fn = cbname || 'f' + (new Date().getTime()).toString(16),
 					JSONP = {};
-				JSONP.open = function (url, callback, error) {
+				JSONP.open = function (options) {
 					var c,
 						n = 0,
 						t,
+						url = options.url,
+						callback = options.success,
+						error = options.error,
 						cb = function () {
 							if (callback) {
 								if (c > 10000) {
