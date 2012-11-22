@@ -18,7 +18,7 @@
 	 * @param {String|Object} domNode the selector for the domNode
 	 */
 	BaseUI.setRootDomNode = function (domNode) {
-		BaseUI.root = (domNode.jquery || domNode.zepto) ? domNode : $(domNode);
+		BaseUI.root = ObjectJS.mixins.Selector(domNode);
 	};
 	/**
 	 * Sets up a UI, caches its domnode and prepares it for use.
@@ -29,7 +29,7 @@
 			ObjectJS.requires(['core.mixins.Native']);
 		}
 		ObjectJS.mixins.UI(this);
-		this.domNode = ObjectJS.mixins.Selector(id);
+		this.domNode = (BaseUI.root) ? BaseUI.root.find(id) : ObjectJS.mixins.Selector(id);
 		this.contentNode = this.domNode.find('.content');
 		this.headerNode = this.domNode.find('.title');
 		this.templateNode = this.domNode.find('.template').remove();

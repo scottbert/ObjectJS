@@ -72,7 +72,7 @@
 				return XHR;
 			};
 			Controller.createJSONP = function (cbname) {
-				var fn = cbname || 'f' + (new Date().getTime()).toString(16),
+				var fn = (typeof cbname === "string") ? cbname : 'f' + (new Date().getTime()).toString(16),
 					JSONP = {};
 				JSONP.open = function (options) {
 					var c,

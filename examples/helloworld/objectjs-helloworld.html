@@ -34,17 +34,84 @@
 			<a href="#" class="close">close</a>
 			<a href="#" class="tst">testjson</a>
 		</div>
+		<script src="../../objectjs.min.js"></script>
+		<script type="text/javascript">
+			/*jslint bitwise: false, browser: true, windows: false, evil: false, white: false, plusplus: true*/
+			/*globals ObjectJS:false,$:false, TestCase:false,assertEquals:false,expectAsserts:false,assertFunction:false,assertNoException:false, jQuery:false, window:false*/
+			/**
+			 * @author scottvanlooy
+			 */
 
-		<!-- script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script -->
-		<!-- script type="text/javascript">
-		if (!jQuery) {
-			document.write('<script src="js/jquery-1.7.2.min.js" type="text/javascript"><\/script>');
-		}
-		</script -->
-		<script src="../../src/ObjectJS.js"></script>
-		<script src="../../src/extras.js"></script>
-		<!-- script type="text/javascript" src="../../objectjs.min.js"></script -->
-		<!-- use either one or the other of the files above. min.js for production -->
-		<script src="js/hello.js"></script>
+			/**
+			 * create namespaces
+			 */
+			var HelloNamespace = {};
+			(function (ns) {
+				"use strict";
+				/**
+				 * Create objects - for such a small page you'd probably not use a
+				 * view/controller, but as your pages get more complex, it's a useful paradigm
+				**/
+				/**
+				 * Controls data in and out of the front end.
+				 * @constructor
+				 */
+				ns.Controller = function () {
+					var that = this,
+						init = function () {
+							that.enter(true);
+						};
+					that.enter = function (runonce) {
+						that.callView(ns, 'View');
+					};
+					if (runonce) {
+						// Things you only need to run once.
+					}
+					init();
+				};
+				/**
+				 * View - controls the UIs in the front end.
+				 * @param {Object} controller
+				 */
+				ns.View = function (controller) {
+					var that = this,
+						init = function () {
+							that.enter(true);
+						};
+					that.controller = controller;
+					that.enter = function (runonce) {
+						that.requires(
+							ns.uis,
+							[
+								'HelloWorld'
+							],
+							that
+						);
+						if (runonce) {
+							// Things you only need to run once.
+							ObjectJS.core.uis.BaseUI.setRootDomNode('body');
+						}
+
+						that.uis.HelloWorld.open();
+					};
+					init();
+				};
+				ns.uis = {};
+				ns.uis.HelloWorld = function (view) {
+					var HelloWorld = this,
+						init = function () {
+							HelloWorld.setupUI('#HelloWorld');
+						};
+					HelloWorld.view = view;
+					
+					init();
+				};
+				ObjectJS.core.uis.BaseUI.createUI(ns.uis.HelloWorld);
+				ObjectJS.core.views.BaseView.createView(ns.View);
+				ObjectJS.core.controllers.BaseController.createController(ns.Controller);
+				ns.Controller = new ns.Controller();
+			}(HelloNamespace));
+
+		</script>
 	</body>
 </html>

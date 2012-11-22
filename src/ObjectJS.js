@@ -4,7 +4,7 @@
  * @author scottvanlooy
  * @name { ObjectJS:[name]}
  */
-var ObjectJS = {};
+var ObjectJS = ObjectJS || {};
 (function (Oj) {
 	"use strict";
 	/**

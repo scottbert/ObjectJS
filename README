@@ -24,6 +24,17 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 CHANGELOG:
+Scott, 22nd Nov 2012
+v 0.9
+jQuery/Zepto builds work and pass all tests.
+Now to write some proper examples.
+
+So there's two flavours of ObjectJS now:
+Native: compressed and gzipped - 4kB
+jQuery/Zepto: compressed and gzipped - 3.2kB
+
+Javascript is in library hell at the moment, everyone has an idea of what they should write and how it should work. A framework should be agnostic, it should not be tied to a library. You shouldn't need to include underscore and jQuery to use one (hello Backbone!).
+
 Scott, 16th Nov 2012
 v 0.8.2
 Added more unit tests

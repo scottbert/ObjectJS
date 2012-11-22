@@ -1,8 +1,9 @@
 ({
 	baseUrl: "../src",
-	name: "ObjectJS",
+	name: "combining",
 	skipModuleInsertion: true,
 	include: [
+		"ObjectJS",
 		"core/utils/Core",
 		"core/utils/ArrayUtils",
 		"core/controllers/BaseController",

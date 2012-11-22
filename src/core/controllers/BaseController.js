@@ -92,10 +92,10 @@
 				ObjectJS.mixins.Controller(BaseController);
 			}
 			// If we're on the same domain, we need to do an XHR request, if not we do a JSONP.
-			if (options.url.indexOf(window.location.host) !== -1 && !options.jsonp) {
+			if ((options.url.indexOf('://') === -1) || (options.url.match(window.location.protocol) && options.url.indexOf(window.location.host) !== -1 && !options.jsonp)) {
 				xhr = BaseController.createXHR();
 			} else {
-				xhr = BaseController.createJSONP(options.jsonp);
+				xhr = BaseController.createJSONP(options.jsonp || true);
 			}
 			xhr.open(options);
 		}

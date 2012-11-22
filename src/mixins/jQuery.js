@@ -28,14 +28,22 @@
 				if (jsonp) {
 					return {
 						open : function (options) {
-							options.dataType = 'json';
-							return $.ajax(options);
+							options.dataType = 'jsonp';
+							if (typeof jsonp === "string") {
+								if (typeof window[jsonp] !== "function") {
+									window[jsonp] = function (obj) {
+										options.success(obj);
+										delete window[jsonp];
+									};
+								}
+							}
+							$.ajax(options);
 						}
 					};
 				}
 				return {
 					open: function (options) {
-						return $.ajax(options);
+						$.ajax(options);
 					}
 				};
 			};
