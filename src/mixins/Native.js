@@ -41,7 +41,7 @@
 				throw ('Old browser, please use jQuery mixin');
 			}
 			var Node;
-			// If we're an ID, get us. getElementById is faster than querySelectorAll - 
+			// If we're just an ID, get us. getElementById is faster than querySelectorAll - 
 			// this currently works about 10 times faster than jQuery for single IDs and 
 			// nearly twice as fast for more complex queries.
 			if (id.charAt(0).indexOf('#') !== -1 && id.indexOf(' ') === -1) {
@@ -167,7 +167,7 @@
 			for (n = 0; n < l; n++) {
 				ret.push(augment(NodeList[n].parentNode.removeChild(NodeList[n])));
 			}
-			return ret;
+			return augment(ret);
 		},
 		bind : function (str, func) {
 			var NodeList = this,
@@ -256,6 +256,28 @@
 			} else {
 				m(this, classNames);
 			}
+		},
+		hasClass : function (className) {
+			var i,
+				n = this,
+				l;
+			if (!l) {
+				n = [this];
+			}
+			l = n.length;
+			for (i = 0; i < l; i++) {
+				if (n[i].className && n[i].className.split && n[i].className.split(' ').indexOf(className) !== -1) {
+					return true;
+				}
+			}
+			return false;
+		},
+		html : function (content) {
+			var ret = (this.length) ? this[0] : this;
+			if (content) {
+				ret.innerHTML = content;
+			}
+			return (ret.innerHTML && ret.innerHTML.trim) ? ret.innerHTML.trim() : ret.innerHTML;
 		}
 	};
 	mixins.UI = mixins.NativeUI = NativeUI;

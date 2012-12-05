@@ -31,7 +31,7 @@
 		ObjectJS.mixins.UI(this);
 		this.domNode = (BaseUI.root) ? BaseUI.root.find(id) : ObjectJS.mixins.Selector(id);
 		this.contentNode = this.domNode.find('.content');
-		this.headerNode = this.domNode.find('.title');
+		this.titleNode = this.domNode.find('.title');
 		this.templateNode = this.domNode.find('.template').remove();
 		this.footerNode = this.domNode.find('.footer');
 	};
@@ -57,10 +57,8 @@
 	 */
 	BaseUI.open = function (obj) {
 		obj = obj || this;
-		setTimeout(function () {
-			obj.domNode.addClass('open');
-			obj.isOpen = true;
-		}, 100);
+		obj.domNode.addClass('open');
+		obj.isOpen = true;
 		return obj;
 	};
 	/**

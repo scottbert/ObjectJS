@@ -24,6 +24,11 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 CHANGELOG:
+Scott, 05 Dec 2012
+More tests for UI component.
+v 0.95
+Filling empty gaps left by jQuery/Zepto in Native implementaion
+
 Scott, 22nd Nov 2012
 v 0.9
 jQuery/Zepto builds work and pass all tests.

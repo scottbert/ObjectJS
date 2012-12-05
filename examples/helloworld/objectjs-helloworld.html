@@ -33,8 +33,11 @@
 			<h2>hello world</h2>
 			<a href="#" class="close">close</a>
 			<a href="#" class="tst">testjson</a>
+			<script class="template" type="html/template">
+				TEML
+			</script>
 		</div>
-		<script src="../../objectjs.min.js"></script>
+		<script src="../../src/ObjectJS.js"></script>
 		<script type="text/javascript">
 			/*jslint bitwise: false, browser: true, windows: false, evil: false, white: false, plusplus: true*/
 			/*globals ObjectJS:false,$:false, TestCase:false,assertEquals:false,expectAsserts:false,assertFunction:false,assertNoException:false, jQuery:false, window:false*/
@@ -57,16 +60,17 @@
 				 * @constructor
 				 */
 				ns.Controller = function () {
-					var that = this,
+					var Controller = this,
 						init = function () {
-							that.enter(true);
+							Controller.enter(true);
 						};
-					that.enter = function (runonce) {
-						that.callView(ns, 'View');
+					Controller.enter = function (runonce) {
+						Controller.callView(ns, 'View');
+						if (runonce) {
+							// Things you only need to run once.
+						}
 					};
-					if (runonce) {
-						// Things you only need to run once.
-					}
+					
 					init();
 				};
 				/**
@@ -74,25 +78,25 @@
 				 * @param {Object} controller
 				 */
 				ns.View = function (controller) {
-					var that = this,
+					var View = this,
 						init = function () {
-							that.enter(true);
+							View.enter(true);
 						};
-					that.controller = controller;
-					that.enter = function (runonce) {
-						that.requires(
+					View.controller = controller;
+					View.enter = function (runonce) {
+						View.requires(
 							ns.uis,
 							[
 								'HelloWorld'
 							],
-							that
+							View
 						);
 						if (runonce) {
 							// Things you only need to run once.
 							ObjectJS.core.uis.BaseUI.setRootDomNode('body');
 						}
 
-						that.uis.HelloWorld.open();
+						View.uis.HelloWorld.open();
 					};
 					init();
 				};
