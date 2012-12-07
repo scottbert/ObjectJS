@@ -25,15 +25,22 @@
 	 * @param {String|Object} id - the dom ID, className or jQuery object of the root element for the UI.
 	 */
 	BaseUI.setupUI = function (id) {
-		if (!ObjectJS.mixins.UI) {
-			ObjectJS.requires(['core.mixins.Native']);
+		var self = this;
+		function setup() {
+			self.domNode = (BaseUI.root) ? BaseUI.root.find(id) : ObjectJS.mixins.Selector(id);
+			self.contentNode = self.domNode.find('.content');
+			self.titleNode = self.domNode.find('.title');
+			self.templateNode = self.domNode.find('.template').remove();
+			self.footerNode = self.domNode.find('.footer');
 		}
-		ObjectJS.mixins.UI(this);
-		this.domNode = (BaseUI.root) ? BaseUI.root.find(id) : ObjectJS.mixins.Selector(id);
-		this.contentNode = this.domNode.find('.content');
-		this.titleNode = this.domNode.find('.title');
-		this.templateNode = this.domNode.find('.template').remove();
-		this.footerNode = this.domNode.find('.footer');
+		if (!ObjectJS.mixins.UI) {
+			ObjectJS.requires(['core.mixins.Native'], function () {
+				ObjectJS.mixins.UI(self);
+				setup();
+			});
+		} else {
+			setup();
+		}
 	};
 	/**
 	 * Sets the active view on a UI object

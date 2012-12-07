@@ -36,7 +36,7 @@
 				}
 			}
 		},
-		NativeSelector = function (id) {
+		NativeSelector = function (id, node) {
 			if (!document.querySelectorAll) {
 				throw ('Old browser, please use jQuery mixin');
 			}
@@ -47,7 +47,10 @@
 			if (id.charAt(0).indexOf('#') !== -1 && id.indexOf(' ') === -1) {
 				Node = document.getElementById(id.substring(1));
 			} else {
-				Node = document.querySelectorAll(id);
+				Node = (node || document).querySelectorAll(id);
+			}
+			if (!Node) {
+				return null;
 			}
 			augment(Node);
 			return Node;
@@ -154,7 +157,7 @@
 	};
 	UIMIXINS = {
 		find: function (str) {
-			return augment(this.querySelectorAll(str));
+			return NativeSelector(str, this);
 		},
 		remove: function () {
 			var NodeList = this,

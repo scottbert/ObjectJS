@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+		<title>FractalJS Test</title>
+	</head>
+	<body>
+		<div id="myRoot">
+				<div id="Foo">
+					<h3 class="title">Head</h3>
+					<div class="content">content</div>
+					<div class="footer">Foot</div>
+					<div class="template">
+						TEML
+					</div>
+				</div>
+				<div id="Foo2">
+					<h3 class="title">Head</h3>
+					<div class="content">content</div>
+					<div class="footer">Foot</div>
+					<div class="template">
+						TEML
+					</div>
+				</div>
+			</div>
+		<script src="../../src/ObjectJS.js"></script>
+		<script type="text/javascript">
+			ObjectJS.reqNameSpace('test.uis');
+			test.uis.Foo = function (view) {
+				var Foo = this;
+				Foo.view = view;
+				(function () {
+					Foo.setupUI('#Foo');
+				}());
+			};
+			test.uis.Foo2 = function (view) {
+				var Foo2 = this;
+				Foo2.view = view;
+				(function () {
+					Foo2.setupUI('#Foo2');
+				}());
+			};
+			ObjectJS.core.uis.BaseUI.createUI(test.uis.Foo);
+			ObjectJS.core.uis.BaseUI.createUI(test.uis.Foo2);
+			test.uis.Foo = new test.uis.Foo();
+			test.uis.Foo.setRootDomNode('#myRoot');
+			test.uis.Foo2 = new test.uis.Foo2();
+		</script>
+	</body>
+</html>
