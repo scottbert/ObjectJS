@@ -18,6 +18,25 @@
 */
 TestCase("Test the BaseUI object", {
 	setUp :  function () {
+		ObjectJS.reqNameSpace('test.uis');
+		test.uis.Foo = function (view) {
+			var Foo = this;
+			Foo.view = view;
+			(function () {
+				Foo.setupUI('#Foo');
+			}());
+		};
+		test.uis.Foo2 = function (view) {
+			var Foo2 = this;
+			Foo2.view = view;
+			(function () {
+				Foo2.setupUI('#Foo2');
+			}());
+		};
+		ObjectJS.core.uis.BaseUI.createUI(test.uis.Foo);
+		ObjectJS.core.uis.BaseUI.createUI(test.uis.Foo2);
+	},
+	"test the setRootDomNode method" : function () {
 		/*:DOC += 
 			<div id="myRoot">
 				<div id="Foo">
@@ -38,25 +57,6 @@ TestCase("Test the BaseUI object", {
 				</div>
 			</div>
 		*/
-		ObjectJS.reqNameSpace('test.uis');
-		test.uis.Foo = function (view) {
-			var Foo = this;
-			Foo.view = view;
-			(function () {
-				Foo.setupUI('#Foo');
-			}());
-		};
-		test.uis.Foo2 = function (view) {
-			var Foo2 = this;
-			Foo2.view = view;
-			(function () {
-				Foo2.setupUI('#Foo2');
-			}());
-		};
-		ObjectJS.core.uis.BaseUI.createUI(test.uis.Foo);
-		ObjectJS.core.uis.BaseUI.createUI(test.uis.Foo2);
-	},
-	"test the setRootDomNode method" : function () {
 		expectAsserts(2);
 		test.uis.Foo = new test.uis.Foo();
 		test.uis.Foo.setRootDomNode('#myRoot');
@@ -65,14 +65,56 @@ TestCase("Test the BaseUI object", {
 		assertObject(test.uis.Foo2.domNode);
 	},
 	"test the setupUI method" : function () {
+		/*:DOC += 
+			<div id="myRoot">
+				<div id="Foo">
+					<h3 class="title">Head</h3>
+					<div class="content">content</div>
+					<div class="footer">Foot</div>
+					<div class="template">
+						TEML
+					</div>
+				</div>
+				<div id="Foo2">
+					<h3 class="title">Head</h3>
+					<div class="content">content</div>
+					<div class="footer">Foot</div>
+					<div class="template">
+						TEML
+					</div>
+				</div>
+			</div>
+		*/
 		expectAsserts(4);
 		test.uis.Foo = new test.uis.Foo();
 		assertEquals(test.uis.Foo.contentNode.html(), 'content');
 		assertEquals(test.uis.Foo.titleNode.html(), 'Head');
 		assertEquals(test.uis.Foo.footerNode.html(), 'Foot');
+		jstestdriver.console.log($('#Foo').find('.template'));
+		jstestdriver.console.log($('#Foo2').find('.template'));
 		assertEquals(test.uis.Foo.templateNode.html(), 'TEML');
 	},
 	"test the get/setView methods" : function () {
+		/*:DOC += 
+			<div id="myRoot">
+				<div id="Foo">
+					<h3 class="title">Head</h3>
+					<div class="content">content</div>
+					<div class="footer">Foot</div>
+					<div class="template">
+						TEML
+					</div>
+				</div>
+				<div id="Foo2">
+					<h3 class="title">Head</h3>
+					<div class="content">content</div>
+					<div class="footer">Foot</div>
+					<div class="template">
+						TEML
+					</div>
+				</div>
+			</div>
+		*/
 		expectAsserts(2);
 		test.uis.Foo = new test.uis.Foo();
 		test.uis.Foo2 = new test.uis.Foo2();
@@ -81,6 +123,26 @@ TestCase("Test the BaseUI object", {
 		assertUndefined(test.uis.Foo2.getView());
 	},
 	"test the open method" : function () {
+		/*:DOC += 
+			<div id="myRoot">
+				<div id="Foo">
+					<h3 class="title">Head</h3>
+					<div class="content">content</div>
+					<div class="footer">Foot</div>
+					<div class="template">
+						TEML
+					</div>
+				</div>
+				<div id="Foo2">
+					<h3 class="title">Head</h3>
+					<div class="content">content</div>
+					<div class="footer">Foot</div>
+					<div class="template">
+						TEML
+					</div>
+				</div>
+			</div>
+		*/
 		expectAsserts(2);
 		test.uis.Foo = new test.uis.Foo();
 		test.uis.Foo.open();
