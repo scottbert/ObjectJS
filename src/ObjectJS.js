@@ -4,8 +4,11 @@
  * @author scottvanlooy
  * @name { ObjectJS:[name]}
  */
-var ObjectJS = ObjectJS || {};
-(function (Oj) {
+var ObjectJS = ObjectJS || function (node) {
+	"use strict";
+	return ObjectJS.mixins.Selector(node);
+};
+(function (oj) {
 	"use strict";
 	/**
 	 * Load a script asynchronously.
@@ -70,12 +73,12 @@ var ObjectJS = ObjectJS || {};
 					return fn.apply(this, combined);
 				};
 			};
-			Oj.mixins = Oj.mixins || {};
-			Oj.core = Oj.core || {};
-			Oj.extras = Oj.extras || {};
-			Oj.NOOP = function () {};
-			Oj.Console = Oj.Console || Oj.NOOP;
-			Oj.requires('config');
+			oj.mixins = oj.mixins || {};
+			oj.core = oj.core || {};
+			oj.extras = oj.extras || {};
+			oj.NOOP = function () {};
+			oj.Console = oj.Console || oj.NOOP;
+			oj.requires('config');
 		},
 		currentView;
 	/**
@@ -85,13 +88,13 @@ var ObjectJS = ObjectJS || {};
 	 * @param {Object} test - test for a mamespace.
 	 * @return {Object|false} The namespace or false if test is true and the namespace doesn't exist
 	 */
-	Oj.reqNameSpace = function (req, test) {
+	oj.reqNameSpace = function (req, test) {
 		var t,
 			x,
 			tns,
 			l;
 		if (!req || typeof req !== "string") {
-			Oj.Console.error('getNameSpace error - requires a string in the format "my.name.space"');
+			oj.Console.error('getNameSpace error - requires a string in the format "my.name.space"');
 			return null;
 		}
 		if (!req.match('\\.')) {
@@ -123,7 +126,7 @@ var ObjectJS = ObjectJS || {};
 	 * (myapp.main.Hello = (function(){}()))
 	 * @param {Function} [callback]. Optional callback to run when loading is complete.
 	 */
-	Oj.requires =  function (requires, callback) {
+	oj.requires =  function (requires, callback) {
 		var l = requires.length,
 			src,
 			load = 0,
@@ -157,9 +160,9 @@ var ObjectJS = ObjectJS || {};
 		for (n = 0; n < l; n++) {
 			docallback = false;
 			src = null;
-			if (namespaceTest(Oj, requires[n]) === undefined) {
+			if (namespaceTest(oj, requires[n]) === undefined) {
 				src = this.baseUrl + requires[n].replace(/\./gi, '/') + '.js';
-				if (Oj.finished) {
+				if (oj.finished) {
 					loadScript(src, callback, load, requires.length, n);
 				} else {
 					docallback = true;
@@ -181,7 +184,7 @@ var ObjectJS = ObjectJS || {};
 	 * object.min?.js
 	 * @return {string}
 	 */
-	Oj.baseUrl = (function () {
+	oj.baseUrl = (function () {
 		var s = document.getElementsByTagName('script');
 		var m = s[s.length - 1];
 		return m.src.replace(/[^\/]+?$/, '');
@@ -191,9 +194,9 @@ var ObjectJS = ObjectJS || {};
 	 * @param  {Object} object the object to be augmented
 	 * @return {Object} the augmented object.
 	 */
-	Oj.augmentObject = function (object) {
+	oj.augmentObject = function (object) {
 		if (typeof object === "undefined") {
-			Oj.err('tried to augment', object);
+			oj.err('tried to augment', object);
 			return null;
 		}
 		if (!object.augmented) {
@@ -207,7 +210,7 @@ var ObjectJS = ObjectJS || {};
 			 */
 			object.extend = object.extend || function (Child, Parent) {
 				if (typeof Child === "undefined" || typeof Parent === "undefined") {
-					Oj.err('Tried to extend', Child, 'with', Parent);
+					oj.err('Tried to extend', Child, 'with', Parent);
 					return null;
 				}
 				if (typeof Parent === "function") {
@@ -218,7 +221,7 @@ var ObjectJS = ObjectJS || {};
 					Child.constructor = Child;
 				}
 			};
-			object.err = Oj.err;
+			object.err = oj.err;
 			object.augmented = true;
 		}
 		return object;
@@ -230,9 +233,9 @@ var ObjectJS = ObjectJS || {};
 	 * @param  {String} [fn]  A function to run on the newly initialised object.
 	 * @return {Object}       The new object
 	 */
-	Oj.initObj = function (obj, ns, fn) {
+	oj.initObj = function (obj, ns, fn) {
 		if (!ns || !ns[obj]) {
-			Oj.err('Attempted to init object', obj, 'in namespace', ns, 'failed.');
+			oj.err('Attempted to init object', obj, 'in namespace', ns, 'failed.');
 			return null;
 		}
 		if (typeof ns[obj] === 'function') {
@@ -247,21 +250,21 @@ var ObjectJS = ObjectJS || {};
 	 * Returns a reference to the current active view.
 	 * @return {Object} a reference to the current active view.
 	 */
-	Oj.getView = function () {
+	oj.getView = function () {
 		return currentView;
 	};
 	/**
 	 * Calls a view. Used at the bottom of an HTML page to call the associated JS view with that page.
 	 * @param  {String} view The view name
 	 */
-	Oj.view = function (view) {
-		Oj.initObj(view, Oj.views, 'enter');
-		currentView = Oj.views[view];
+	oj.view = function (view) {
+		oj.initObj(view, oj.views, 'enter');
+		currentView = oj.views[view];
 	};
 	/**
 	 * If the string "debug" appears in the URL, we write to the console if there is one whatever we feed into this function.
 	 */
-	Oj.err = function () {
+	oj.err = function () {
 		if (window.console && window.location.href === 'debug') {
 			window.console.error(arguments);
 		}
@@ -270,7 +273,7 @@ var ObjectJS = ObjectJS || {};
 	/**
 	 * If the string "debug" appears in the URL, we write to the console if there is one whatever we feed into this function.
 	 */
-	Oj.log = function () {
+	oj.log = function () {
 		if (window.console && window.location.href.indexOf('debug') !== -1) {
 			window.console.log(arguments);
 		}
@@ -279,12 +282,15 @@ var ObjectJS = ObjectJS || {};
 	/**
 	 * If the string "debug" appears in the URL, we write to the console if there is one whatever we feed into this function.
 	 */
-	Oj.warn = function () {
+	oj.warn = function () {
 		if (window.console && window.location.href.indexOf('debug') !== -1) {
 			window.console.log(arguments);
 		}
 		return true;
 	};
-	Oj.loadScript = loadScript;
+	oj.loadScript = loadScript;
+	if (!window.oj) {
+		window.oj = oj;
+	}
 	init();
 }(ObjectJS));

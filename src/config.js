@@ -7,6 +7,10 @@
  * elsewhere in your codebase to load your own components, you can also use it to
  * lazy load code.
  */
+var ObjectJS = ObjectJS || function (node) {
+	"use strict";
+	return ObjectJS.mixins.Selector(node);
+};
 ObjectJS.config =
 	[
 	// utils

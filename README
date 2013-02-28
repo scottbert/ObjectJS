@@ -24,6 +24,11 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 CHANGELOG:
+Scott, 28 Feb 2013
+Added some methods. Tests will come later ;)
+I'm building a website using this framework on the front end and expressjs on the backend. Expect many tweaks and bugfixes over the next few days.
+Changed so we can use "oj" function to select dom elements and modify them, if you don't wish to use jQuery/Zepto.
+
 Scott, 05 Dec 2012
 More tests for UI component.
 v 0.95
