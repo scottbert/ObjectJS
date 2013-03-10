@@ -71,7 +71,6 @@
                     }
                     node.ttimers.push(function (n) {
                         setTimeout(function () {
-                            delete n.tdelay;
                             closure();
                         }, n.tdelay);
                     }(node));
@@ -269,7 +268,13 @@
         },
         removeClass : function (classNames) {
             var Node = this,
+                node,
+                ret,
                 l = Node.length;
+            if (!l) {
+                Node = [Node];
+                l = Node.length;
+            }
             function d(o, s) {
                 o.setAttribute('class', (s.trim) ? o.getAttribute('class').replace(s, '').trim() : o.getAttribute('class').replace(s, ''));
             }
@@ -284,16 +289,15 @@
                     d(o, cn);
                 }
             }
-            return checkDelay(Node, function () {
-                if (l) {
-                    while (l--) {
-                        m(Node[l], classNames);
-                    }
-                } else {
-                    m(Node, classNames);
-                }
-                return augment(Node);
-            });
+            while (l--) {
+                node = Node[l];
+                ret = checkDelay(node, function (n) {
+                    return function () {
+                        m(n, classNames);
+                    };
+                }(node));
+            }
+            return Node;
         },
         setClass : function (classNames) {
             var Node = this,
@@ -314,7 +318,7 @@
                     };
                 }(node));
             }
-            return ret;
+            return Node;
         },
         hasClass : function (className) {
             var i,
@@ -354,7 +358,7 @@
             while (l--) {
                 augment(intn[l]).delay(Math.random() * number);
             }
-            return augment(Node);
+            return Node;
         },
         delay : function (number) {
             var Node = this,
@@ -373,7 +377,7 @@
                     intn[l].tdelay += parseInt(number, 10);
                 }
             }
-            return augment(Node);
+            return Node;
         }
     };
     mixins.UI = mixins.NativeUI = NativeUI;
