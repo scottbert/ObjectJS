@@ -180,7 +180,23 @@
     };
     UIMIXINS = {
         find: function (str) {
-            return NativeSelector(str, this);
+            var nodes = this,
+                l,
+                nl,
+                nll,
+                ret = [];
+            if (!nodes.length) {
+                nodes = [nodes];
+            }
+            l = nodes.length;
+            while (l--) {
+                nl = NativeSelector(str, nodes[l]);
+                nll = nl.length;
+                while (nll--) {
+                    ret.push(nl[nll]);
+                }
+            }
+            return augment(ret);
         },
         remove: function () {
             var NodeList = this,
@@ -205,6 +221,7 @@
             return checkDelay(NodeList, function () {
                 if (!NodeList.item) {
                     NodeList = [NodeList];
+                    l = NodeList.length;
                 }
                 if (!eventBind) {
                     if (NodeList[0].addEventListener) {
@@ -378,6 +395,30 @@
                 }
             }
             return Node;
+        },
+        hide : function () {
+            var Node = this,
+                l = Node.length;
+            if (!l) {
+                Node = [Node];
+                l = 1;
+            }
+            while (l--) {
+                Node[l].style.display = 'none';
+            }
+
+        },
+        show : function () {
+            var Node = this,
+                l = Node.length;
+            if (!l) {
+                Node = [Node];
+                l = 1;
+            }
+            while (l--) {
+                Node[l].style.display = '';
+            }
+
         }
     };
     mixins.UI = mixins.NativeUI = NativeUI;
