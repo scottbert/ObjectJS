@@ -28,7 +28,7 @@
                 callback(e);
             };
         },
-        NativeUI = function NativeUI(object) {
+        nativeUI = function NativeUI(object) {
             var i;
             for (i in OBJMIXINS) {
                 if (OBJMIXINS.hasOwnProperty(i)) {
@@ -36,7 +36,7 @@
                 }
             }
         },
-        NativeSelector = function NativeSelector(id, node) {
+        nativeSelector = function NativeSelector(id, node) {
             if (!document.querySelectorAll) {
                 throw ('Old browser, please use jQuery mixin');
             }
@@ -50,7 +50,7 @@
                 Node = ((node || [])[0] || document).querySelectorAll(id);
             }
             if (!Node) {
-                return null;
+                Node = [];
             }
             augment(Node);
             return Node;
@@ -63,23 +63,24 @@
                 NodeList = [NodeList];
             }
             l = NodeList.length;
+            function r(n) {
+                setTimeout(function () {
+                    closure();
+                }, n.tdelay);
+            }
             while (l--) {
                 node = NodeList[l];
                 if (node.tdelay) {
                     if (!node.ttimers) {
                         node.ttimers = [];
                     }
-                    node.ttimers.push(function (n) {
-                        setTimeout(function () {
-                            closure();
-                        }, n.tdelay);
-                    }(node));
+                    node.ttimers.push(r(node));
                     ret = true;
                 }
             }
             return (ret) ? augment(NodeList) : closure();
         },
-        NativeController = function NativeController(Controller) {
+        nativeController = function NativeController(Controller) {
             Controller.createXHR = function () {
                 var xhr,
                     XHR = {};
@@ -190,7 +191,7 @@
             }
             l = nodes.length;
             while (l--) {
-                nl = NativeSelector(str, nodes[l]);
+                nl = nativeSelector(str, nodes[l]);
                 nll = nl.length;
                 while (nll--) {
                     ret.push(nl[nll]);
@@ -216,13 +217,13 @@
         bind : function (str, func) {
             var NodeList = this,
                 ret = [],
-                l = NodeList.length,
+                l,
                 n;
             return checkDelay(NodeList, function () {
                 if (!NodeList.item) {
                     NodeList = [NodeList];
-                    l = NodeList.length;
                 }
+                l = NodeList.length;
                 if (!eventBind) {
                     if (NodeList[0].addEventListener) {
                         eventBind = 'addEventListener';
@@ -287,11 +288,11 @@
             var Node = this,
                 node,
                 ret,
-                l = Node.length;
-            if (!l) {
+                l;
+            if (!Node.item) {
                 Node = [Node];
-                l = Node.length;
             }
+            l = Node.length;
             function d(o, s) {
                 o.setAttribute('class', (s.trim) ? o.getAttribute('class').replace(s, '').trim() : o.getAttribute('class').replace(s, ''));
             }
@@ -306,13 +307,14 @@
                     d(o, cn);
                 }
             }
+            function r(n) {
+                return function () {
+                    m(n, classNames);
+                };
+            }
             while (l--) {
                 node = Node[l];
-                ret = checkDelay(node, function (n) {
-                    return function () {
-                        m(n, classNames);
-                    };
-                }(node));
+                ret = checkDelay(node, r(node));
             }
             return Node;
         },
@@ -320,20 +322,21 @@
             var Node = this,
                 node,
                 ret,
-                l = Node.length;
-            if (!l) {
+                l;
+            if (!Node.item) {
                 Node = [Node];
-                l = Node.length;
+            }
+            l = Node.length;
+            function r(n) {
+                return function () {
+                    if (n.setAttribute) {
+                        n.setAttribute('class', classNames.trim());
+                    }
+                };
             }
             while (l--) {
                 node = Node[l];
-                ret = checkDelay(node, function (n) {
-                    return function () {
-                        if (n.setAttribute) {
-                            n.setAttribute('class', classNames.trim());
-                        }
-                    };
-                }(node));
+                ret = checkDelay(node, r(node));
             }
             return Node;
         },
@@ -365,13 +368,13 @@
         randomDelay : function (number) {
             var Node = this,
                 intn,
-                l = Node.length;
-            if (!l) {
+                l;
+            if (!Node.item) {
                 intn = [Node];
-                l = intn.length;
             } else {
                 intn = Node;
             }
+            l = intn.length;
             while (l--) {
                 augment(intn[l]).delay(Math.random() * number);
             }
@@ -380,13 +383,13 @@
         delay : function (number) {
             var Node = this,
                 intn,
-                l = Node.length;
-            if (!l) {
+                l;
+            if (!Node.item) {
                 intn = [Node];
-                l = intn.length;
             } else {
                 intn = Node;
             }
+            l = intn.length;
             while (l--) {
                 if (!intn[l].tdelay) {
                     intn[l].tdelay = parseInt(number, 10);
@@ -398,30 +401,34 @@
         },
         hide : function () {
             var Node = this,
-                l = Node.length;
-            if (!l) {
+                l;
+            if (!Node.item) {
                 Node = [Node];
-                l = 1;
             }
-            while (l--) {
-                Node[l].style.display = 'none';
+            l = Node.length;
+            if (!Node[0].style) {
+                return Node;
+            } else {
+                while (l--) {
+                    Node[l].style.display = 'none';
+                }
+                return Node;
             }
-
         },
         show : function () {
             var Node = this,
-                l = Node.length;
-            if (!l) {
+                l;
+            if (!Node.item) {
                 Node = [Node];
-                l = 1;
             }
+            l = Node.length;
             while (l--) {
                 Node[l].style.display = '';
             }
-
+            return Node;
         }
     };
-    mixins.UI = mixins.NativeUI = NativeUI;
-    mixins.Selector = mixins.NativeSelector = NativeSelector;
-    mixins.Controller = mixins.NativeController = NativeController;
+    mixins.UI = mixins.NativeUI = nativeUI;
+    mixins.Selector = mixins.NativeSelector = nativeSelector;
+    mixins.Controller = mixins.NativeController = nativeController;
 }(ObjectJS.reqNameSpace('ObjectJS.mixins')));

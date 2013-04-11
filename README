@@ -24,6 +24,10 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 CHANGELOG:
+Scott, 11 April 2013
+Builing a site that runs using this natively without additional libraries/frameworks continues.
+Added methods for showing and hiding elements.
+More tests needed, but will follow once I get things a bit more stable.
 Scott, 28 Feb 2013
 Added some methods. Tests will come later ;)
 I'm building a website using this framework on the front end and expressjs on the backend. Expect many tweaks and bugfixes over the next few days.
