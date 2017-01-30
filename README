@@ -1,4 +1,4 @@
-Copyright (c) 2011-2012, Scott van Looy, ThreeSquared. 
+Copyright (c) 2011-2017, Scott van Looy.
 All Rights Reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -8,8 +8,8 @@ modification, are permitted provided that the following conditions are met:
     * Redistributions in binary form must reproduce the above copyright
       notice, this list of conditions and the following disclaimer in the
       documentation and/or other materials provided with the distribution.
-    * Neither the name of FractalJS nor the names of its contributors may 
-      be used to endorse or promote products derived from this software 
+    * Neither the name of ObjectJS nor the names of its contributors may
+      be used to endorse or promote products derived from this software
       without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
@@ -24,8 +24,12 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 CHANGELOG:
+Scott, 28 Jan 2017
+I still use dis but my workflow has changed dramatically in the last 4 years so here's an update that plays nice with npm/etc.
+Use with Rollup for best benefits.
+
 Scott, 11 April 2013
-Builing a site that runs using this natively without additional libraries/frameworks continues.
+Building a site that runs using this natively without additional libraries/frameworks continues.
 Added methods for showing and hiding elements.
 More tests needed, but will follow once I get things a bit more stable.
 Scott, 28 Feb 2013
@@ -74,10 +78,10 @@ Write more tests/documentation.
 
 Scott, 4th September 2012
 v 0.7
-Tests fixed. 
+Tests fixed.
 Added addClass and removeClass methods.
-TODO: 
-Need to write tests. 
+TODO:
+Need to write tests.
 Need to create better examples.
 Need to create documentation.
 Known issues:
@@ -85,35 +89,35 @@ JSONP never returns in Opera.
 
 Scott, 30th August 2012
 NEU:
-I've split the repos, so this is the front end only component - it's good to 
-go, just needs a few more tests. I've been having a large amount of lack of 
+I've split the repos, so this is the front end only component - it's good to
+go, just needs a few more tests. I've been having a large amount of lack of
 time lately in which to develop stuff and creating FractalJS is a bit time
 consuming so it seemed to make sense as I'd only really done the front end
-bit anyway. So This will be ObjJS and FractalJS will depend on it and use
+bit anyway. So This will be ObjectJS and FractalJS will depend on it and use
 the same syntax but for the back end.
 
-See https://github.com/scottbert/FractalJS if you have no idea what I'm 
+See https://github.com/scottbert/FractalJS if you have no idea what I'm
 talking about.
 
 Scott, 22 Mar 2012.
 
 UPDATED GOAL:
-MVC Javascript on both server running Node and client. The same code is run in 
+MVC Javascript on both server running Node and client. The same code is run in
 both, the framework works out what to do with it.
 NOTE: Only the client is finished.
 
-The framework is tiny. core is 5k minified, 2k gzipped. 
+The framework is tiny. core is 5k minified, 2k gzipped.
 I need to document it somewhat.
 
 ORIGINAL GOAL:
-This is a project that has grown out of my day to day work to create a 
+This is a project that has grown out of my day to day work to create a
 lightweight, jquery compatible MVC framework for creating a Javascript front
-end application. 
-It will be simple to use and encourage jQuery and Javascript best practice as 
+end application.
+It will be simple to use and encourage jQuery and Javascript best practice as
 well as CSS namespacing.
-It will never be complete, there's always more and better ways of doing things 
+It will never be complete, there's always more and better ways of doing things
 than will be encapsulated here, so my aim is for a stable WIP.
-I'm currently building the library, so don't try and use it until there are 
+I'm currently building the library, so don't try and use it until there are
 samples in the examples directory :)
 
 Scott, 19 Sept 2011.
@@ -121,9 +125,9 @@ Scott, 19 Sept 2011.
 CHANGELOG:
 30-Aug-12
 =========
-Changed to ObjectJS. FractalJS will continue (albeit slowly) at the original repo 
+Changed to ObjectJS. ObjectJS will continue (albeit slowly) at the original repo
 location and will use ObjectJS as a dependency, so ObjectJS can happily live on
-just the client for now as it is almost complete. 
+just the client for now as it is almost complete.
 TODO: Don't try using without jQuery/Zepto yet. Also wouldn't recommend yet using
 it as I've not worked out where to put the docs.
 Need to write unit tests for JSON templating.
@@ -132,7 +136,7 @@ Need to write unit tests for JSON templating.
 =========
 Added:
 Native JSONP and a stub for native XHR
-.bind for binding events (follows jQuery syntax, with the exception that it just 
+.bind for binding events (follows jQuery syntax, with the exception that it just
 takes two arguments: event and function)
 tests for JSONP
 code coverage plugin for tests.
@@ -144,7 +148,7 @@ Rewrote the internals of partial, renamed to curry, it now actually works
 and passes tests.
 05-Apr-12
 =========
-Added Function.prototype.partial, used John Resig's as a base and extended it to 
+Added Function.prototype.partial, used John Resig's as a base and extended it to
 deal with multiple arguments.
 http://ejohn.org/blog/partial-functions-in-javascript/
 Added tests for BaseView and partial
@@ -161,27 +165,27 @@ Created different testrunners, to test the minified output as well.
 
 23-Mar-12
 =========
-Added build tools. build-all/core/jquery requires node.js and builds the output into 
+Added build tools. build-all/core/jquery requires node.js and builds the output into
 the compiled directory.
-Build core currently builds jquery core as the lib for now requires it. I shall 
+Build core currently builds jquery core as the lib for now requires it. I shall
 write code shortly that removes this dependency.
 Fixed tests.
 Wrote more tests.
 
 22-Mar-12
 =========
-I worked out a while back that there was already a JSMVC, so renamed the thing in 
+I worked out a while back that there was already a JSMVC, so renamed the thing in
 my mind. Refactored for rename.
 
 21-Mar-12:
 =========
-Finally got JsTestDriver running properly, added tests for a lot of things and 
+Finally got JsTestDriver running properly, added tests for a lot of things and
 refactored some other stuff.
 Worked on the helloworld example.
 
 8-Oct-11:
 =========
-Added jsmvc.js and moved core methods into it. Wrote includes method. Added 
+Added jsmvc.js and moved core methods into it. Wrote includes method. Added
 jsmvc-test.html. No tests yet, coming soon.
 Reformatted objects to better show API methods.
 Added FF namespace.

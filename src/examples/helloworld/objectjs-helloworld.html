@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+		<title>FractalJS Test</title>
+		<style type="text/css">
+			#HelloWorld {
+				position:relative;
+				top:20px;
+				left:20px;
+				border:3px solid #888;
+				box-shadow:0px 0px 16px rgba(0,0,0,0.3);
+				border-radius:12px;
+				width:200px;
+				height:100px;
+				position:absolute;
+			}
+			#HelloWorld h2 {
+				font-family:sans-serif;
+				margin:0;
+				padding:15px;
+			}
+			#HelloWorld a {
+				font-family:sans-serif;
+				position:relative;
+				left:60px;
+				display:block;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="root">
+			<div id="HelloWorld">
+				<h2>hello world</h2>
+				<a href="#" class="close">close</a>
+				<a href="#" class="tst">testjson</a>
+				<script class="template" type="html/template">
+					TEML
+				</script>
+			</div>
+			<div id="HelloWorld2">
+				<h2>hello world</h2>
+				<a href="#" class="close">close</a>
+				<a href="#" class="tst">testjson</a>
+				<script class="template" type="html/template">
+					TEML
+				</script>
+			</div>
+		</div>
+		<script src="/js/objectjs.min.js"></script>
+		<script type="text/javascript">
+			/*jslint bitwise: false, browser: true, windows: false, evil: false, white: false, plusplus: true*/
+			/*globals ObjectJS:false,$:false, TestCase:false,assertEquals:false,expectAsserts:false,assertFunction:false,assertNoException:false, jQuery:false, window:false*/
+			/**
+			 * @author scottvanlooy
+			 */
+
+			/**
+			 * create namespaces
+			 */
+			var HelloNamespace = {};
+			(function (ns) {
+				"use strict";
+
+				ObjectJS.setRootDomNode('#root');
+				/**
+				 * Create objects - for such a small page you'd probably not use a
+				 * view/controller, but as your pages get more complex, it's a useful paradigm
+				**/
+				/**
+				 * Controls data in and out of the front end.
+				 * @constructor
+				 */
+				ns.Controller = function Controller() {
+					var Controller = this,
+						init = function () {
+							Controller.enter(true);
+						};
+					Controller.enter = function (runonce) {
+						Controller.callView(ns, 'View');
+						if (runonce) {
+							// Things you only need to run once.
+						}
+					};
+
+					init();
+				};
+				/**
+				 * View - controls the UIs in the front end.
+				 * @param {Object} controller
+				 */
+				ns.View = function View(controller) {
+					var View = this,
+						init = function () {
+							View.enter(true);
+						};
+					View.controller = controller;
+					View.enter = function (runonce) {
+						View.requires(
+							ns.uis,
+							[
+								'HelloWorld',
+								'HelloWorld2'
+							],
+							View
+						);
+						if (runonce) {
+							// Things you only need to run once.
+							ObjectJS.setRootDomNode('#root');
+						}
+
+						View.uis.HelloWorld.open();
+					};
+					init();
+				};
+				ns.uis = {};
+				ns.uis.HelloWorld = function HelloWorld(view) {
+					var HelloWorld = this,
+						init = function () {
+							HelloWorld.setupUI('#HelloWorld');
+						};
+					HelloWorld.view = view;
+
+					init();
+				};
+				ns.uis.HelloWorld2 = function HelloWorld2(view) {
+					var HelloWorld2 = this,
+						init = function () {
+							HelloWorld2.setupUI('#HelloWorld2');
+						};
+					HelloWorld2.view = view;
+
+					init();
+				};
+				ObjectJS.createUI(ns.uis.HelloWorld);
+				ObjectJS.createUI(ns.uis.HelloWorld2);
+				ObjectJS.createView(ns.View);
+				ObjectJS.createController(ns.Controller);
+				ns.Controller = new ns.Controller();
+			}(HelloNamespace));
+
+		</script>
+	</body>
+</html>

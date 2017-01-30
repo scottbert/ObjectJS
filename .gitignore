@@ -1,2 +1,5 @@
 .project
 compiled
+node_modules
+.git
+.dist
